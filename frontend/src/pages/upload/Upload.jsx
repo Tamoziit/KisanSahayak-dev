@@ -105,7 +105,7 @@ function Uploader() {
 					</div>
 				))}
 
-				{images.length === 3 && (
+				{images.length === 3 && uploadData.length === 0 && (
 					<button
 						onClick={handleUploadToCloudinary}
 						disabled={uploading}
@@ -115,7 +115,7 @@ function Uploader() {
 					</button>
 				)}
 
-				{uploadData.length === 3 && (
+				{uploadData.length === 3 && !predictedData && (
 					<button
 						className="primary-button-new"
 						onClick={handlePredictions}
@@ -125,9 +125,10 @@ function Uploader() {
 					</button>
 				)}
 			</section>
-			{/*<div>
+			
+			<div>
 				{predictedData && <Predictions data={predictedData} />}
-			</div>*/}
+			</div>
 		</main>
 	);
 }

@@ -31,8 +31,6 @@ const Dashboard = () => {
 		getAnalysis();
 	}, []);
 
-	console.log(analysisData);
-
 	return (
 		<div className="p-4">
 			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7">Regional Environmental Conditions Analysis</h1>
@@ -61,7 +59,7 @@ const Dashboard = () => {
 
 							<div className="w-1/2">
 								<span className="font-semibold text-lg">Diseases your crops are most prone to</span>
-								<ul className="pl-2 pt-2 list-disc list-inside">
+								<ul className="pl-2 pt-2 list-disc list-insideFF">
 									{analysisData.predictions.diseases.map((disease, idx) => (
 										<li key={idx}>{disease}</li>
 									))}

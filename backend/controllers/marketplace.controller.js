@@ -46,6 +46,18 @@ export const getAllItems = async (req, res) => {
     }
 }
 
+export const getMySellings = async (req, res) => {
+    try {
+        const loggedInUser = req.params.id;
+        const products = await Product.find({ seller: loggedInUser });
+
+        res.status(200).json(products);
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
 export const getItemById = async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
