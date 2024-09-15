@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useCallback, useRef, useState } from "react";
 import Webcam from "react-webcam";
 import { uploadToCloudinary } from "../utils/uploadToCloudinary";
@@ -15,7 +16,6 @@ const Camera = () => {
 	const [uploading, setUpLoading] = useState(false);
 	const { loading, getPredictions } = useGetPredictions();
 	const [data, setData] = useState(null);
-	//const [imgUrl, setImgUrl] = useState(null);
 	const [captureData, setCaptureData] = useState([]);
 
 	const handleImageUpload = (imgUrl) => {
@@ -65,6 +65,7 @@ const Camera = () => {
 					</button>
 					<button onClick={() => {
 						setUrl(null);
+						setData(null);
 					}} className="primary-button-new">Refresh</button>
 				</div>
 
@@ -73,15 +74,19 @@ const Camera = () => {
 						<div className="uploaded-row" key={_idx}>
 							<div className="content">
 								{url && (
-									<div>
-										<img src={data} alt="Screenshot" />
+									<div className="h-[100px] w-[150px]">
+										<img src={data} alt="Screenshot" className="w-full p-3" />
 									</div>
 								)}
 							</div>
 						</div>
 					))}
-					{captureData.length === 3 && <button className="primary-button-new" onClick={handlePredictions} disabled={loading}>Predict</button>}
+					{captureData.length === 3 && !data && <button className="primary-button-new" onClick={handlePredictions} disabled={loading}>Predict</button>}
 				</section>
+
+				{data && <div>
+					<Predictions data={data} />
+				</div>}
 			</div>
 		</>
 	)

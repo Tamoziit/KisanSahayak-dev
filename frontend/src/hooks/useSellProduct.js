@@ -1,14 +1,15 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
+import { useAuthContext } from "../context/AuthContext";
 
 const useSellProduct = () => {
     const [loading, setLoading] = useState();
+    const { authUser } = useAuthContext();
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const sell = async ({
         product_name,
         image_url,
-        seller,
         seller_name,
         seller_type,
         price
@@ -23,7 +24,7 @@ const useSellProduct = () => {
                 body: JSON.stringify({
                     product_name,
                     image_url,
-                    seller,
+                    seller: authUser._id,
                     seller_name,
                     seller_type,
                     price
@@ -45,7 +46,7 @@ const useSellProduct = () => {
         }
     }
 
-    return {loading, sell};
+    return { loading, sell };
 }
 
 export default useSellProduct;

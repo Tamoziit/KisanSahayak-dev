@@ -5,6 +5,7 @@ import { uploadBlobToCloudinary } from '../../utils/uploadBlobToCloudinary';
 import { base64ToBlob } from '../../utils/base64ToBlob';
 import toast from 'react-hot-toast';
 import Spinner from '../../components/Spinner';
+import useSellProduct from '../../hooks/useSellProduct';
 
 const videoConstraints = {
 	width: 450,
@@ -24,6 +25,7 @@ const MarketplaceSell = () => {
 	const [url, setUrl] = useState(null);
 	const [uploadData, setUploadData] = useState(null);
 	const [uploading, setUploading] = useState(false);
+	const {loading, sell} = useSellProduct();
 
 	const capturePhoto = useCallback(() => {
 		if (webcamRef.current) {
@@ -42,6 +44,7 @@ const MarketplaceSell = () => {
 		try {
 			const glbUrl = await uploadBlobToCloudinary(url);
 			setUploadData(glbUrl);
+			setInputs({ ...inputs, image_url: glbUrl });
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log("Error in uploading image", error.message);
@@ -56,32 +59,37 @@ const MarketplaceSell = () => {
 		console.log('User media accessed:', mediaStream);
 	};
 
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+		await sell(inputs);
+	}
+
 	return (
 		<>
-				<div className='flex p-4 gap-1'>
-					{/* Camera */}
-					<div
-						className="w-1/2 h-auto flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-blue-600 p-4"
-					>
-						{url ? (
-							<img src={url} alt="captured" />
-						) : (
-							<div>
-								<Webcam
-									ref={webcamRef}
-									audio={false}
-									screenshotFormat="image/png"
-									videoConstraints={videoConstraints}
-									onUserMedia={onUserMedia}
-									mirrored={false}
-									screenshotQuality={1}
-								/>
+			<div className='flex p-4 gap-1'>
+				{/* Camera */}
+				<div
+					className="w-1/2 h-auto flex flex-col items-center justify-center cursor-pointer border-2 border-dashed border-blue-600 p-4"
+				>
+					{url ? (
+						<img src={url} alt="captured" />
+					) : (
+						<div>
+							<Webcam
+								ref={webcamRef}
+								audio={false}
+								screenshotFormat="image/png"
+								videoConstraints={videoConstraints}
+								onUserMedia={onUserMedia}
+								mirrored={false}
+								screenshotQuality={1}
+							/>
 
-								<div className="flex items-center justify-center">
-									<button className="border-none outline-none w-1/2 mt-6 rounded-2xl p-2 text-white font-medium bg-blue-700 hover:bg-blue-500" onClick={capturePhoto}>Capture</button>
-								</div>
+							<div className="flex items-center justify-center">
+								<button className="border-none outline-none w-1/2 mt-6 rounded-2xl p-2 text-white font-medium bg-blue-700 hover:bg-blue-500" onClick={capturePhoto}>Capture</button>
 							</div>
-						)}
+						</div>
+					)}
 					{url && !uploadData && (
 						<div className="flex gap-2 w-full">
 							<button className="border-none outline-none w-1/2 mt-6 rounded-2xl p-2 text-white font-medium bg-blue-700 hover:bg-blue-500" onClick={() => setUrl(null)}>Refresh</button>
@@ -94,13 +102,12 @@ const MarketplaceSell = () => {
 							</button>
 						</div>
 					)}
-					</div>
-
+				</div>
 
 				{/* Form */}
 				<div className='form-outer w-1/2'>
 					<h2 style={{ fontSize: "30px", fontWeight: "bold" }}>INPUT DETAILS</h2>
-					<form>
+					<form onSubmit={handleSubmit}>
 						<div className="form-group">
 							<label>Name of crop:</label>
 							<input
@@ -174,7 +181,7 @@ const MarketplaceSell = () => {
 							/>
 						</div>
 
-						<button type="submit" className='primary-button-new'>Submit</button>
+						<button type="submit" className='primary-button-new' disabled={loading}>{loading ? <Spinner /> : "Sell"}</button>
 					</form>
 				</div>
 			</div>
