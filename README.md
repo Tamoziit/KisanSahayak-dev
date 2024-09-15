@@ -52,6 +52,11 @@ To get started with the project, clone the repository and install the necessary 
 ```bash
 git clone https://github.com/yourusername/kisansahayak.git
 cd kisansahayak
+cd backend
+npm install
+cd frontend
+npm install
+cd ML
 pip install -r requirements.txt
 ```
 
@@ -59,7 +64,12 @@ pip install -r requirements.txt
 Once the project is set up, you can start the web application using the following command:
 
 ```bash
-python app.py
+cd frontend
+npm run dev
+cd backend
+npm start
+cd ML
+uvicorn app:app --reload
 ```
 
 Open your browser and navigate to `http://127.0.0.1:5000` to use the application.
