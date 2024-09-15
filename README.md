@@ -54,25 +54,25 @@ git clone https://github.com/yourusername/kisansahayak.git
 cd kisansahayak
 cd backend
 npm install
-cd frontend
+cd ../frontend
 npm install
-cd ML
+cd ../ML
 pip install -r requirements.txt
 ```
 
 ## Usage
-Once the project is set up, you can start the web application using the following command:
+Once the project is set up, you can start the web application using the following command on your root directory:
 
 ```bash
 cd frontend
 npm run dev
-cd backend
+cd ../backend
 npm start
-cd ML
+cd ../ML
 uvicorn app:app --reload
 ```
 
-Open your browser and navigate to `http://127.0.0.1:5000` to use the application.
+Open your browser and navigate to `http://127.0.0.1:5173` to use the application.
 
 ## Dataset Information
 Our data is sourced from reliable datasets like IMD (India Meteorological Department) and district-wise agricultural reports. The data contains key features like district names, actual rainfall, normal rainfall, percentage deviation from the norm, soil nutrients (NPK), temperature, and humidity.
@@ -88,10 +88,10 @@ These features are in development and will be added to future versions of KisanS
 ## Team Members
 This project is a collaborative effort by:
 - **Sagnik Basak** (Team Leader) - Machine Learning & Data Analysis Development
-- **Tamojit Das** – Full Stack development
-- **Ankan Das** – DL Model Development
-- **Debeshee Sen** – Full Stack Development & Design
-- **Titas Kabiraj** – Front End, Design & Documentation
+- **Tamojit Das** – Full Stack Development & Application System Design
+- **Ankan Das** – DL Model Design & Development
+- **Debeshee Sen** – Full Stack Development & UI/UX Design
+- **Titas Kabiraj** – Front End, UI/UX Design & Documentation
 - **Ritesh Das** – Android Development
 
 For inquiries, feel free to contact us via [kisansahayak@gmail.com](mailto:kisansahayak@gmail.com).
@@ -102,4 +102,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 **Note:** This is a private repository, and we are not currently open to contributions. However, we will be happy to consider your ideas in the future. Stay tuned!
-```
+
