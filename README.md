@@ -1,6 +1,6 @@
 # KisanSahayak - Empowering Farmers with Smart Agriculture Solutions
 
-**KisanSahayak** is a smart, data-driven web application designed to help farmers make informed decisions. By integrating machine learning and environmental data, we aim to provide farmers with real-time insights into rainfall patterns, crop recommendations, and disease management.
+**KisanSahayak** is a smart, data-driven web application designed to help farmers make informed decisions. By integrating machine learning, environmental data, advanced imaging techniques, and innovative marketplace features, we aim to provide farmers with real-time insights into rainfall patterns, crop recommendations, disease management, and more.
 
 ## Table of Contents
 - [Project Overview](#project-overview)
@@ -9,27 +9,42 @@
 - [Getting Started](#getting-started)
 - [Usage](#usage)
 - [Dataset Information](#dataset-information)
-- [Contributing](#contributing)
+- [Future Work](#future-work)
 - [Team Members](#team-members)
 - [License](#license)
 
 ## Project Overview
-KisanSahayak provides detailed analysis of district-wise rainfall patterns and predicts the optimal crop types based on soil nutrients, temperature, humidity, and other factors. Farmers can also receive disease predictions and management tips to safeguard their crops. 
+KisanSahayak offers farmers a comprehensive solution for smarter agricultural practices, utilizing cutting-edge technologies such as machine learning and computer vision. Key highlights include:
+- **Rainfall & Climate Analysis:** In-depth analysis of district-wise rainfall patterns and climate variations to help farmers plan their sowing and irrigation strategies.
+- **Crop Recommendations:** AI-based suggestions for optimal crops to grow, based on soil nutrients, temperature, and humidity.
+- **Disease Prediction & Management:** Our system predicts potential crop diseases and offers management tips, using both traditional and advanced methods like hyperspectral imaging.
+- **Voice Assistance:** A voice-enabled system that allows farmers to interact with the app hands-free, making it user-friendly for all.
+- **Image Analysis for Disease Detection:** Farmers can upload photos of crops, and the app selects the best out of 3 images to analyze for disease detection.
+- **Multilingual Support:** Farmers can access the platform in multiple regional languages, ensuring ease of use for everyone.
+- **Trusted User Marketplace:** A secure, verified platform for farmers to sell or buy products from other farmers or retailers.
+- **Disease Prediction:** The app predicts the most likely disease in a farm based on current environmental and crop conditions.
 
-This project is especially tailored for farmers in India, providing personalized insights based on the specific environmental conditions of their region.
+KisanSahayak aims to simplify agricultural decision-making, reduce risks, and improve yields for farmers across India.
 
 ## Features
-- **Rainfall Analysis:** Analyze actual vs. normal rainfall and understand deviations.
-- **Crop Recommendations:** Suggest the best crops to plant based on soil and environmental conditions.
-- **Disease Prediction:** Predict potential diseases and offer treatment recommendations.
-- **Interactive Reports:** Users can upload their data and receive a comprehensive analysis report.
+- **Rainfall Analysis:** Understand actual vs. normal rainfall and deviation trends.
+- **Crop Recommendations:** AI-based suggestions for ideal crops to grow in specific environmental conditions.
+- **Disease Prediction:** Forecast potential crop diseases and offer actionable management tips.
+- **Interactive Reports:** Generate detailed analysis reports from user-uploaded data.
+- **Voice Assistance:** Voice-controlled features for ease of use.
+- **Best Camera Angle Selection:** Automated selection of the best image out of three for better accuracy in disease detection.
+- **Multilingual Support:** Access the app in various regional languages for easy navigation.
+- **Trusted User System:** Farmers and retailers are verified to maintain trust and transparency in the marketplace.
+- **Marketplace:** A platform for farmers to trade goods with each other or retailers, ensuring fair access to resources.
+- **Most Likely Disease Prediction:** AI-powered predictions on the most probable diseases affecting the crops in a specific farm.
 
 ## Technologies Used
 - **Backend:** Node JS
 - **Frontend:** HTML, CSS, JavaScript, React, React Native
-- **Machine Learning:** scikit-learn, pandas, tensorflow
+- **Machine Learning:** scikit-learn, pandas, TensorFlow
 - **Database:** MongoDB
 - **Deployment:** AWS EC2, Docker
+- **Additional Technologies:** NLP for voice recognition, image processing for camera selection, multilingual integration.
 
 ## Getting Started
 To get started with the project, clone the repository and install the necessary dependencies.
@@ -50,21 +65,31 @@ python app.py
 Open your browser and navigate to `http://127.0.0.1:5000` to use the application.
 
 ## Dataset Information
-Our data is sourced from reliable datasets like IMD (India Meteorological Department) and district-wise agricultural reports. The data contains key features like district names, actual rainfall, normal rainfall, and percentage deviation from the norm.
+Our data is sourced from reliable datasets like IMD (India Meteorological Department) and district-wise agricultural reports. The data contains key features like district names, actual rainfall, normal rainfall, percentage deviation from the norm, soil nutrients (NPK), temperature, and humidity.
 
-## Contributing
-We welcome contributions from the community! Please feel free to submit a pull request or open an issue if you find any bugs or have suggestions for new features.
+## Future Work
+We are actively working on enhancing KisanSahayak by introducing:
+- **AI-powered AR Image Assistance:** While capturing crop photos, the app will use augmented reality (AR) to guide farmers on the optimal way to take the picture for disease detection.
+- **Hyperspectral Reflectance Method:** We are exploring hyperspectral imaging techniques to predict crop diseases more accurately, leveraging the reflectance properties of leaves and plants.
+- **Expanded Crop and Disease Prediction Models:** Building more robust models to predict diseases in a broader range of crops and environmental conditions.
+
+These features are in development and will be added to future versions of KisanSahayak.
 
 ## Team Members
 This project is a collaborative effort by:
-- **Sagnik Basak** (Team Leader) – Machine Learning & Data Analysis Development
+- **Sagnik Basak** (Team Leader) - Machine Learning & Data Analysis Development
 - **Tamojit Das** – Full Stack development
 - **Ankan Das** – DL Model Development
-- **Debeshee Sen** – Full stack development and design
-- **Titas Kabiraj** – Front End, design and documentation
-- **Ritesh Das** - Android Development
+- **Debeshee Sen** – Full Stack Development & Design
+- **Titas Kabiraj** – Front End, Design & Documentation
+- **Ritesh Das** – Android Development
 
-Feel free to reach out to any of us via [kisansahayak@gmail.com](mailto:kisansahayak@gmail.com) for any queries.
+For inquiries, feel free to contact us via [kisansahayak@gmail.com](mailto:kisansahayak@gmail.com).
 
 ## License
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+**Note:** This is a private repository, and we are not currently open to contributions. However, we will be happy to consider your ideas in the future. Stay tuned!
+```
