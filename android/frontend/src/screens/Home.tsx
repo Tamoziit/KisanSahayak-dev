@@ -7,6 +7,9 @@ import { selectUser, setPredictionData } from '../../slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Speech from "expo-speech"
 import { BarChart } from 'react-native-chart-kit';
+//import Predict from '../hooks/predict';
+import { uploadBlobToCloudinary } from '../utils/uploadBlobToCloudinary';
+//import toast from 'react-hot-toast';
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June"],
@@ -31,11 +34,15 @@ const chartConfig = {
 
 const Home = () => {
   const [img, setImg] = useState('');
+  const [images, setImages] = useState<string[]>([]);
+  const [uploadData, setUploadData] = useState<string[]>([]);
+  console.log(images);
+  //const { getPredictions} = Predict();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   console.log(user);
   const handleVoice = () => {
-    Speech.speak("कार्यक्रम में उपस्थित चीफ जस्टिस ऑफ इंडिया डी वाई चंद्रचूड़ जी, जस्टिस श्री संजीव खन्ना जी, जस्टिस बी आर गवई जी, देश के कानून मंत्री अर्जुनराम मेघवाल जी, अटॉर्नी जनरल आर वेंकट रमानी जी, सुप्रीम कोर्ट बार काउंसिल के अध्यक्ष श्रीमान कपिल सिब्बल जी, बार काउंसिल ऑफ इंडिया के अध्यक्ष भाई मनन कुमार मिश्रा जी, सुप्रीम कोर्ट के सभी judges, हाईकोर्ट्स के Chief Justices, district judges, अन्य महानुभाव, देवियों एवं सज्जनों!", {
+    Speech.speak("नीचे दिया गया बार चार्ट 6 महीने की अवधि में गणना की गई वार्षिक वर्षा को दर्शाता है", {
       language: "hi-IN",
       pitch: 0.05,
       volume: 10
@@ -100,7 +107,7 @@ const Home = () => {
     })
     console.log(result);
     if (!result.canceled){
-      setImg(result.assets[0].uri);
+      setImages((prevImages) => [...prevImages, result.assets[0].uri]);
     }
   }
   const choosePhotoFromGallery = async () => {
@@ -112,9 +119,29 @@ const Home = () => {
     })
     console.log(result);
     if (!result.canceled){
-      setImg(result.assets[0].uri);
+      setImages((prevImages) => [...prevImages, result.assets[0].uri]);
     }
   }
+
+  const handleUploadToCloudinary = async () => {
+		try {
+			const uploadPromises = images.map(async (imageBlob) => {
+				const cloudinaryUrl = await uploadBlobToCloudinary(imageBlob);
+				return cloudinaryUrl;
+			});
+
+			const cloudinaryUrls = await Promise.all(uploadPromises);
+			setUploadData((prevData) => [...prevData, ...cloudinaryUrls]);
+		} catch (error) {
+			if (error instanceof Error) {
+				console.log("Error in uploading image", error.message);
+				//toast.error(error.message);
+			} else {
+				console.log("An unknown error occurred");
+			}
+		}
+	};
+
   // const choosePhotoFromGallery = async () => {
   //   const image = await launchCamera({
   //     mediaType: "photo"
@@ -124,6 +151,7 @@ const Home = () => {
   // }
 
   const handlePredict = () => {
+    handleVoice();
     setPredictionsData(data);
     dispatch(setPredictionData(data));
   }
@@ -209,22 +237,22 @@ const Home = () => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={choosePhotoFromGallery} style={tw`mb-2`}>
+        onPress={choosePhotoFromGallery} style={tw`mb-3`}>
           <View style={tw`h-15 w-70 bg-green-500 shadow-md self-center`}>
             <Text style={tw`text-xl text-white m-auto`}>
               Choose from gallery
             </Text>
           </View>
         </TouchableOpacity>
-        {img && <TouchableOpacity
-        onPress={handleVoice} style={tw`mb-2`}>
-          <View style={tw`h-15 w-70 bg-blue-500 shadow-md self-center`}>
+        {images.length > 0 && <Image source={{uri: images[0]}} style={tw`self-center h-20 w-20`}/>}
+        {images.length > 0 && <TouchableOpacity
+        onPress={handlePredict} style={tw`mb-2`}>
+          <View style={tw`h-15 w-70 m-3 bg-blue-500 shadow-md self-center`}>
             <Text style={tw`text-xl text-white m-auto`}>
               Predict
             </Text>
           </View>
         </TouchableOpacity>}
-        {/* {img && <Image source={{uri: img}} style={tw`self-center h-70 w-70`}/>} */}
         {Object.keys(predictionsData).length > 0 && <View style={tw`mt-18`}>
                     <Text style={{alignSelf: 'center', fontFamily: "Poppins"}}>
                         Annual Rainfall

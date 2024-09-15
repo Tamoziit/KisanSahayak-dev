@@ -50,7 +50,7 @@ const Login = () => {
     //     return <AppLoading/>
 
     const handleRegister = () => {
-      axios.post("http://192.168.161.212:3001/auth/register", form)
+      axios.post("http://192.168.228.212:3001/auth/register", form)
       .then(res => console.log(res))
       .catch(err => console.log(err)
       )
@@ -68,7 +68,7 @@ const Login = () => {
 
     const handleLogin = async () => {
       const loginForm = {phoneno: form.phoneno, password: form.password}
-      const loggedInResponse = await fetch("http://192.168.126.212:3001/auth/login", {
+      const loggedInResponse = await fetch("http://192.168.43.131:3001/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm),
@@ -78,9 +78,9 @@ const Login = () => {
 
       if (loggedIn.msg)
         setErrorMessage(loggedIn.msg);
-      if (loggedIn.token)
+      if (loggedIn.phoneno)
       {
-        dispatch(setUserData(loggedIn.user));
+        dispatch(setUserData(loggedIn));
         setForm({
           name: '',
           gender: '',
@@ -101,7 +101,7 @@ const Login = () => {
     
     const onSelectedItemsChange = (selectedItems) => {
       setSelectedItems(selectedItems);
-      setForm({...form, crops: selectedItems});
+      setForm({...form, crops: selectedItems});``
     }
     
     return (

@@ -55,6 +55,8 @@ const prices = [];
 app.post("/", async (req, res) => {
     try {
         const price = req.body;
+        console.log(price);
+        
         prices.push(price);
         console.log(prices);
 

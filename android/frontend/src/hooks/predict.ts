@@ -15,19 +15,19 @@ const Predict = () => {
             const fetchData = {
                 userId: user._id,
                 url: url,
-                location: data.District,
-                rainAct: data.ACTUAL,
-                rainNorm: data.NORMAL,
-                rainDep: data.DEP,
-                soil_N: data.N,
-                soil_K: data.K,
-                soil_P: data.P,
-                soil_pH: data.pH,
+                // location: data.District,
+                // rainAct: data.ACTUAL,
+                // rainNorm: data.NORMAL,
+                // rainDep: data.DEP,
+                // soil_N: data.N,
+                // soil_K: data.K,
+                // soil_P: data.P,
+                // soil_pH: data.pH,
                 temp: tempAndHum.avgTemp,
                 hum: tempAndHum.avgHum
             }
 
-            const predictions = await fetch("http://192.168.228.212/home", {
+            const predictions = await fetch("http://192.168.203.212/home", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

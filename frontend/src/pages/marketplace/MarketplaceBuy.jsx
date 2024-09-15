@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
-//import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import axios from "axios"
 import { Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import useGetItemById from '../../hooks/useGetItemById';
 
 const MarketplaceBuy = () => {
-	//const prodData = useSelector((state) => state.productData);
-	const priceBreakdown = [];
+	const prodData = useSelector((state) => state.productData);
+
 	const [prodInfo, setProdInfo] = useState(null);
-	//priceBreakdown.push({ "totalPrice": prodData.price });
+	
 	const { id } = useParams();
 	const { loading, product } = useGetItemById();
-
-	//console.log(priceBreakdown);
 
 	/*async function getWikiResponse(url, config) {
 		const res = await axios.get(url, config);
@@ -22,13 +20,14 @@ const MarketplaceBuy = () => {
 
 	const handlePay = () => {
 		try {
+			const priceBreakdown = [{"totalPrice" : prodInfo.price}];
 			axios.post("http://localhost:3001/", { priceBreakdown })
 		}
 		catch (err) {
 			console.log(err);
 		}
 	}
-
+		
 	useEffect(() => {
 		const getProduct = async () => {
 			const data = await product(id);
@@ -148,7 +147,7 @@ const MarketplaceBuy = () => {
 							{
 								<Box>
 									<form action='http://localhost:3001/pay' method='post'>
-										<input type="text" onChange={handlePay} value={priceBreakdown} />
+										<input type="text" onChange={handlePay} />
 										<input type='submit' style={{
 											width: "225px",
 											height: "40px",
