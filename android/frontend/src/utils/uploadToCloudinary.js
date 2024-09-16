@@ -6,16 +6,27 @@ export const uploadToCloudinary = async (base64Image) => {
     const uploadPreset = "KisanSahayak"; //upload preset
 
     const formData = new FormData();
-    formData.append("file", base64Image);
+    const fileName = base64Image.split("/").pop();
+    const file = {
+        uri: base64Image,
+        type: 'image/jpeg',
+        name: fileName
+    };
+
+    formData.append("file", file);
     formData.append("upload_preset", uploadPreset);
 
     try {
         const res = await fetch(url, {
             method: "POST",
-            body: formData
+            body: formData,
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'multipart/form-data',
+            }
         });
 
-        const data = await res.json();
+        const data = await res.json();                
         return data.secure_url;
     } catch (error) {
         console.log("Error uploading image: ", error);

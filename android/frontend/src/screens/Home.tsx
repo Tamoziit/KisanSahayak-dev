@@ -9,6 +9,7 @@ import * as Speech from "expo-speech"
 import { BarChart } from 'react-native-chart-kit';
 //import Predict from '../hooks/predict';
 import { uploadBlobToCloudinary } from '../utils/uploadBlobToCloudinary';
+import { uploadToCloudinary } from '../utils/uploadToCloudinary';
 //import toast from 'react-hot-toast';
 
 const data = {
@@ -34,13 +35,13 @@ const chartConfig = {
 
 const Home = () => {
   const [img, setImg] = useState('');
+  const [predicted, setPredicted] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [uploadData, setUploadData] = useState<string[]>([]);
-  console.log(images);
+  console.log(uploadData);
   //const { getPredictions} = Predict();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  console.log(user);
   const handleVoice = () => {
     Speech.speak("नीचे दिया गया बार चार्ट 6 महीने की अवधि में गणना की गई वार्षिक वर्षा को दर्शाता है", {
       language: "hi-IN",
@@ -125,8 +126,10 @@ const Home = () => {
 
   const handleUploadToCloudinary = async () => {
 		try {
+      setPredicted(true);
 			const uploadPromises = images.map(async (imageBlob) => {
-				const cloudinaryUrl = await uploadBlobToCloudinary(imageBlob);
+        console.log(imageBlob);
+				const cloudinaryUrl = await uploadToCloudinary(imageBlob);        
 				return cloudinaryUrl;
 			});
 
@@ -151,9 +154,10 @@ const Home = () => {
   // }
 
   const handlePredict = () => {
+    handleUploadToCloudinary();
     handleVoice();
-    setPredictionsData(data);
-    dispatch(setPredictionData(data));
+    // setPredictionsData(data);
+    // dispatch(setPredictionData(data));
   }
     return (
     <ScrollView>
@@ -244,9 +248,18 @@ const Home = () => {
             </Text>
           </View>
         </TouchableOpacity>
-        {images.length > 0 && <Image source={{uri: images[0]}} style={tw`self-center h-20 w-20`}/>}
-        {images.length > 0 && <TouchableOpacity
-        onPress={handlePredict} style={tw`mb-2`}>
+        {images.length < 2 && <View style={tw`self-center`}>
+          <Text>
+            Please take three pictures to proceed further
+          </Text>
+        </View>}
+        <View style={tw`flex-row self-center`}>
+          {images.length > 0 && <Image source={{uri: images[0]}} style={tw`self-center h-20 w-20 mr-3`}/>}
+          {images.length > 0 && <Image source={{uri: images[1]}} style={tw`self-center h-20 w-20 mr-3`}/>}
+          {images.length > 0 && <Image source={{uri: images[2]}} style={tw`self-center h-20 w-20`}/>}
+        </View>
+        {images.length > 2 && <TouchableOpacity
+        onPress={handlePredict} disabled={predicted} style={tw`mb-2`}>
           <View style={tw`h-15 w-70 m-3 bg-blue-500 shadow-md self-center`}>
             <Text style={tw`text-xl text-white m-auto`}>
               Predict
