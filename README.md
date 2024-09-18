@@ -74,6 +74,25 @@ uvicorn app:app --reload
 
 Open your browser and navigate to `http://127.0.0.1:5173` to use the application.
 
+## App Usage
+You can also start the mobile application using the following command on your root directory:
+
+```bash
+cd android/frontend
+npx expo start
+cd ../../backend
+npm start
+cd ../ML
+uvicorn app:app --reload
+```
+
+Download Expo Go app on your mobile device
+
+- [Download for Android (Google Play Store)](https://play.google.com/store/apps/details?id=host.exp.exponent)
+- [Download for iOS (App Store)](https://apps.apple.com/app/expo-go/id982107779)
+
+After the app has started running, a QR code will be generated in your terminal or browser. Open the Expo Go app on your mobile phone and use the built-in camera or Expo Go to scan the QR code. Once scanned, the mobile app will load directly in the Expo Go app.
+
 ## Dataset Information
 Our data is sourced from reliable datasets like IMD (India Meteorological Department) and district-wise agricultural reports. The data contains key features like district names, actual rainfall, normal rainfall, percentage deviation from the norm, soil nutrients (NPK), temperature, and humidity.
 
@@ -92,7 +111,7 @@ This project is a collaborative effort by:
 - **Ankan Das** – DL Model Design & Development
 - **Debeshee Sen** – Full Stack Development & UI/UX Design
 - **Titas Kabiraj** – Front End, UI/UX Design & Documentation
-- **Ritesh Das** – Android Development
+- **Ritesh Das** – Android Development & Full Stack Development
 
 For inquiries, feel free to contact us via [kisansahayak@gmail.com](mailto:kisansahayak@gmail.com).
 
