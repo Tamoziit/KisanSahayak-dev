@@ -60,8 +60,8 @@ const createOrder = async () => {
                 }
             ],
             application_context: {
-                return_url: "http://localhost:5174/complete-order",
-                cancel_url: "http://localhost:5174/cancel-order",
+                return_url: "http://localhost:5173/complete-order",
+                cancel_url: "http://localhost:5173/cancel-order",
                 user_action: "PAY_NOW",
                 brand_name: ""
             }

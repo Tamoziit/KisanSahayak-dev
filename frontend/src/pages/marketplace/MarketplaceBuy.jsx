@@ -7,9 +7,10 @@ import useGetItemById from '../../hooks/useGetItemById';
 
 const MarketplaceBuy = () => {
 	const prodData = useSelector((state) => state.productData);
+	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [prodInfo, setProdInfo] = useState(null);
-	
+
 	const { id } = useParams();
 	const { loading, product } = useGetItemById();
 
@@ -20,14 +21,14 @@ const MarketplaceBuy = () => {
 
 	const handlePay = () => {
 		try {
-			const priceBreakdown = [{"totalPrice" : prodInfo.price}];
-			axios.post("http://localhost:3001/", { priceBreakdown })
+			const priceBreakdown = [{ "totalPrice": prodInfo.price }];
+			axios.post(`${apiUrl}/`, { priceBreakdown })
 		}
 		catch (err) {
 			console.log(err);
 		}
 	}
-		
+
 	useEffect(() => {
 		const getProduct = async () => {
 			const data = await product(id);
@@ -146,7 +147,7 @@ const MarketplaceBuy = () => {
 							</Typography>
 							{
 								<Box>
-									<form action='http://localhost:3001/pay' method='post'>
+									<form action={`${apiUrl}/pay`} method='post'>
 										<input type="text" onChange={handlePay} />
 										<input type='submit' style={{
 											width: "225px",
