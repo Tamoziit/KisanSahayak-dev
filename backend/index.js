@@ -7,8 +7,9 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-import createOrder from "./services/paypal.js"
+//import createOrder from "./services/paypal.js"
 import { fileURLToPath } from "url";
+import { client } from "./redis/client.js";
 
 import authRoutes from "./routes/auth.routes.js";
 import predictionRoutes from "./routes/predictions.routes.js";
@@ -50,8 +51,7 @@ app.use("/predictions", predictionRoutes);
 app.use("/marketplace", marketplaceRoutes);
 app.use("/elevatedUser", elevatedUserRoutes);
 
-const prices = [];
-
+/*const prices = [];
 app.post("/", async (req, res) => {
     try {
         const price = req.body;
@@ -74,9 +74,17 @@ app.post("/pay", async (req, res) => {
     }
 })
 
+export default prices;*/
+
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL).then(() => {
-    app.listen(PORT, () => console.log(`Server PORT: ${PORT}`));
+    app.listen(PORT, () => {
+        console.log(`Server PORT: ${PORT}`);
+        console.log("Connected to MongoDB");
+        if (client) {
+            console.log("Connected to Redis");
+        } else {
+            console.log("Error in connecting to Redis");
+        }
+    });
 }).catch((error) => console.log(`${error} did not connect`));
-
-export default prices;
