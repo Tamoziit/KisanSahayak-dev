@@ -8,6 +8,7 @@
 - [Technologies Used](#technologies-used)
 - [Getting Started](#getting-started)
 - [Usage](#usage)
+- [Mobile App Usage](#app-usage)
 - [Dataset Information](#dataset-information)
 - [Future Work](#future-work)
 - [Team Members](#team-members)
