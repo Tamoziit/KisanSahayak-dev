@@ -1,12 +1,14 @@
 import { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios"
 import { Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import useGetItemById from '../../hooks/useGetItemById';
+import { setProductPrice } from '../../state/reducer';
 
 const MarketplaceBuy = () => {
 	const prodData = useSelector((state) => state.productData);
+	const dispatch = useDispatch();
 	const apiUrl = import.meta.env.VITE_API_URL;
 
 	const [prodInfo, setProdInfo] = useState(null);
@@ -23,6 +25,7 @@ const MarketplaceBuy = () => {
 		try {
 			const priceBreakdown = [{ "totalPrice": prodInfo.price }];
 			axios.post(`${apiUrl}/`, { priceBreakdown })
+			dispatch(setProductPrice(prodInfo.price));
 		}
 		catch (err) {
 			console.log(err);
