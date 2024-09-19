@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-//import createOrder from "./services/paypal.js"
+import createOrder from "./services/paypal.js"
 import { fileURLToPath } from "url";
 import { client } from "./redis/client.js";
 
@@ -51,7 +51,7 @@ app.use("/predictions", predictionRoutes);
 app.use("/marketplace", marketplaceRoutes);
 app.use("/elevatedUser", elevatedUserRoutes);
 
-/*const prices = [];
+const prices = [];
 app.post("/", async (req, res) => {
     try {
         const price = req.body;
@@ -67,8 +67,8 @@ app.post("/", async (req, res) => {
 
 app.post("/pay", async (req, res) => {
     try {
-        // const price = req.body;
-        // prices.push(price);
+        const price = req.body;
+        prices.push(price);
         const url = await createOrder();
         res.redirect(url);
     } catch (err) {
@@ -76,7 +76,7 @@ app.post("/pay", async (req, res) => {
     }
 })
 
-export default prices;*/
+export default prices;
 
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL).then(() => {
