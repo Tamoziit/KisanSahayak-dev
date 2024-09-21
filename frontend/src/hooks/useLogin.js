@@ -30,7 +30,7 @@ const useLogin = () => {
 			setAuthUser(data);
 			
 			if (data) {
-				toast.success("Signed up successfully");
+				toast.success("Logged in successfully");
 			}
 		} catch (error) {
 			toast.error(error.message);

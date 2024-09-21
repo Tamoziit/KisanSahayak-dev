@@ -10,6 +10,9 @@ const Predictions = ({ data }) => {
           ))}</p>
         </div>
         <div>
+          <p className="font-semibold text-lg">Crop: {data.crop}</p>
+        </div>
+        <div>
           <p className="font-medium">Recommendation:</p>
           <ul className="pl-2 list-disc list-inside">
             {data.recomm.map((el, _idx) => (
