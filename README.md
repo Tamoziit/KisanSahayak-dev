@@ -73,7 +73,7 @@ cd ../ML
 uvicorn app:app --reload
 ```
 
-Open your browser and navigate to `http://127.0.0.1:5173` to use the application.
+Open your browser and navigate to `http://localhost:5173/` to use the application.
 
 ## App Usage
 You can also start the mobile application using the following command on your root directory:
