@@ -474,11 +474,6 @@ body {
     max-width: 140px;
   }
 
-  .navbar-links-container {
-    display: flex;
-    width: 100%;
-  }
-
   .navbar-menu-container {
     display: flex;
   }

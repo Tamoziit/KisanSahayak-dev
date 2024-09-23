@@ -52,6 +52,7 @@ const Login = () => {
                   e.preventDefault();
                   setSecure(!secure);
                 }}
+                className="bg-transparent hover:bg-slate-200"
               ><HiMiniEyeSlash className="fa-solid fa-phone mr-4 text-gray-500" /></button>
             </div>
 
