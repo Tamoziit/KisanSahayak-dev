@@ -87,6 +87,7 @@ const SignUp = () => {
                   e.preventDefault();
                   setSecure(!secure);
                 }}
+                className="bg-transparent hover:bg-slate-200"
               >
                 <HiMiniEyeSlash className="mr-4 text-gray-500" />
               </button>
