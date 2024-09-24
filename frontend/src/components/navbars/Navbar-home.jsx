@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Logo from "../Assets/KisanSahayak.png";
+import Logo from "../../Assets/KisanSahayak.png";
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
 import Box from "@mui/material/Box";
@@ -9,15 +9,14 @@ import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import HomeIcon from "@mui/icons-material/Home";
 import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { MdLogout } from "react-icons/md";
-import { useNavigate } from "react-router-dom";
-import useLogout from "../hooks/useLogout";
+import { Link, useNavigate } from "react-router-dom";
+import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -28,22 +27,32 @@ const Navbar = () => {
     {
       text: "Home",
       icon: <HomeIcon />,
+      type: "section",
+      link: ""
     },
     {
       text: "About",
       icon: <InfoIcon />,
+      type: "section",
+      link: "#testimonial-id"
     },
     {
       text: "Testimonials",
       icon: <CommentRoundedIcon />,
+      type: "section",
+      link: "#new-activities-id"
     },
     {
       text: "Contact",
       icon: <PhoneRoundedIcon />,
+      type: "section",
+      link: "#contact-id"
     },
     {
       text: "Cart",
       icon: <ShoppingCartRoundedIcon />,
+      type: "page",
+      link: "/marketplace"
     }
   ];
 
@@ -77,7 +86,11 @@ const Navbar = () => {
               <ListItem key={item.text} disablePadding>
                 <ListItemButton>
                   <ListItemIcon>{item.icon}</ListItemIcon>
-                  <ListItemText primary={item.text} />
+                  {item.type === "section" ? (
+                    <a href={item.link}>{item.text}</a>
+                  ) : (
+                    <Link to={item.link}>{item.text}</Link>
+                  )}
                 </ListItemButton>
               </ListItem>
             ))}

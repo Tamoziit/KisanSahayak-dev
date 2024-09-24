@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState } from "react";
 import { fetchWeatherInfo } from "../utils/getLocationAndWeatherData";
 import { getTempAndHum } from "../utils/getTempAndHum";
 

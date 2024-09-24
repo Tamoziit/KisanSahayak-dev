@@ -6,6 +6,7 @@ import useGetPredictions from "../../hooks/useGetPredictions.js";
 import Predictions from "../../components/Predictions.jsx";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
+import Navbar from "../../components/navbars/Navbar-actions.jsx";
 
 function Uploader() {
 	const inputRef = useRef(null);
@@ -73,70 +74,74 @@ function Uploader() {
 	console.log(predictedData);
 
 	return (
-		<main className="upload-body">
-			<div className="w-full flex flex-1 gap-3 p-4">
-				<div className="w-full h-full flex flex-col items-center justify-center p-10">
-					<div
-						onClick={handleImageUpload}
-						className="w-full h-auto flex items-center justify-center cursor-pointer border-2 border-dashed border-blue-600 p-4"
-					>
-						<div className="flex flex-col items-center gap-2">
-							<MdCloudUpload className="h-[250px] w-[350px]" />
+		<>
+			<Navbar />
+			<main className="upload-body">
 
-							{images.length === 0 && uploadData.length === 0 && <span className="text-gray-700">No files chosen</span>}
-							{uploadData.length !== 3 && images.length !== 0 && <span className="text-gray-700">Choose 3 files in total to upload</span>}
+				<div className="w-full flex flex-1 gap-3 px-4">
+					<div className="w-full h-full flex flex-col items-center justify-center px-10">
+						<div
+							onClick={handleImageUpload}
+							className="w-full h-auto flex items-center justify-center cursor-pointer border-2 border-dashed border-blue-600 p-4"
+						>
+							<div className="flex flex-col items-center gap-2">
+								<MdCloudUpload className="h-[250px] w-[350px] text-blue-500" />
+
+								{images.length === 0 && uploadData.length === 0 && <span className="text-gray-700">No files chosen</span>}
+								{uploadData.length !== 3 && images.length !== 0 && <span className="text-gray-700">Choose 3 files in total to upload</span>}
+							</div>
+
+							<input
+								type="file"
+								accept="image/*"
+								ref={inputRef}
+								className="hidden"
+								onChange={handleImageChange}
+							/>
 						</div>
 
-						<input
-							type="file"
-							accept="image/*"
-							ref={inputRef}
-							className="hidden"
-							onChange={handleImageChange}
-						/>
-					</div>
-
-					<div className="flex gap-2 w-full items-center justify-center">
-						{images.map((image, idx) => (
-							<div className="uploaded-row max-h-full" key={idx}>
-								<div className="content">
-									<span>
-										<MdDelete onClick={() => handleDeletion(image)} />
-									</span>
+						<div className="flex gap-2 w-full items-center justify-center">
+							{images.map((image, idx) => (
+								<div className="uploaded-row max-h-full" key={idx}>
+									<div className="content">
+										<span>
+											<MdDelete onClick={() => handleDeletion(image)} />
+										</span>
+									</div>
+									<img src={image} width={150} height={150} alt="image" />
 								</div>
-								<img src={image} width={150} height={150} alt="image" />
-							</div>
-						))}
+							))}
+						</div>
+
+						<div className="flex items-center justify-center w-full">
+							{images.length === 3 && uploadData.length === 0 && (
+								<button
+									onClick={handleUploadToCloudinary}
+									disabled={uploading}
+									className="primary-button-new w-3/4"
+								>
+									{uploading ? <Spinner /> : "Upload"}
+								</button>
+							)}
+
+							{uploadData.length === 3 && !predictedData && (
+								<button
+									className="primary-button-new w-full"
+									onClick={handlePredictions}
+									disabled={predicting}
+								>
+									{predicting ? <Spinner /> : "Predict"}
+								</button>
+							)}
+						</div>
 					</div>
 
-					<div className="flex items-center justify-center w-full">
-						{images.length === 3 && uploadData.length === 0 && (
-							<button
-								onClick={handleUploadToCloudinary}
-								disabled={uploading}
-								className="primary-button-new w-3/4"
-							>
-								{uploading ? <Spinner /> : "Upload"}
-							</button>
-						)}
-
-						{uploadData.length === 3 && !predictedData && (
-							<button
-								className="primary-button-new w-full"
-								onClick={handlePredictions}
-								disabled={predicting}
-							>
-								{predicting ? <Spinner /> : "Predict"}
-							</button>
-						)}
+					<div className="flex items-center justify-center w-full p-3">
+						{predictedData ? (<Predictions data={predictedData} />) : (<img src="gifend.gif" alt="loading img" className="w-1/2" />)}
 					</div>
 				</div>
-
-				<div className="flex items-center justify-center w-full p-3">
-					{predictedData  ? (<Predictions data={predictedData} />) : (<img src="gifend.gif" alt="loading img" className="w-1/2" />)}
-				</div>
-			</div>
-		</main>
+			</main>
+		</>
 	);
 }
 

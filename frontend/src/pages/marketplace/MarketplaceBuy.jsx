@@ -41,8 +41,6 @@ const MarketplaceBuy = () => {
 		getProduct();
 	}, []);
 
-	//console.log(prodInfo);
-
 	return (
 		<>
 			{loading ? (
@@ -63,23 +61,11 @@ const MarketplaceBuy = () => {
 							<Typography variant='h6' marginBottom={2} color="#c2c2c2" fontWeight="200">
 								{prodInfo?.seller_name}
 							</Typography>
-							{/* <Typography variant='h3b' marginBottom={2}>
-                        {foodInfo}
-                    </Typography> */}
 							<Typography display="flex" flexDirection="row" marginBottom={2.5}>
 								<Typography variant='h2b' fontWeight="100">
 									{prodInfo?.seller_type}
 								</Typography>
-								{/*<Typography color="#ff8400" fontSize="1.2rem" m={1.3}>
-							{prodData.rating >= 1.0 && <i className="bi bi-star-fill" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating >= 2.0 && <i className="bi bi-star-fill" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating > 2.0 && prodData.rating < 3.0 && <i className="bi bi-star-half" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating >= 3.0 && <i className="bi bi-star-fill" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating > 3.0 && prodData.rating < 4.0 && <i className="bi bi-star-half" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating >= 4.0 && <i className="bi bi-star-fill" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating > 4.0 && prodData.rating < 5.0 && <i className="bi bi-star-half" style={{ marginRight: "3px" }}></i>}
-							{prodData.rating === 5.0 && <i className="bi bi-star-fill" style={{ marginRight: "3px" }}></i>}
-						</Typography>*/}
+								
 								<Typography display="flex" flexDirection="row">
 									<Typography marginTop={2}>
 										₹
@@ -88,97 +74,15 @@ const MarketplaceBuy = () => {
 										{prodInfo?.price}
 									</Typography>
 								</Typography>
-								{/* <Button variant="contained" onClick={handleRateit} sx={{
-                            backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
-                            border: theme.palette.mode === "dark" ? "2px solid white" : "",
-                            height: "40px",
-                            margin: "0.5rem",
-                            textTransform: "none",
-                            color: theme.palette.mode === "dark" ? dark : "#111",
-                            "&:hover": {
-                            backgroundColor: theme.palette.mode === "dark" ? "white" : "#0062ff",
-                            color: theme.palette.mode === "dark" ? "black" : "white",
-                        }
-                        }
-                        
-                        }>
-                            {rated ? (<Box display="flex" flexDirection="row">
-                                <Box color={ theme.palette.mode === "light" ? "#00c742" : "#00ff44"}>
-                                    <CheckIcon/>
-                                </Box>
-                                <Typography variant="h7" fontWeight="400">
-                                    Rated {rating}
-                                </Typography>
-                            </Box>) : (
-                                <Typography>
-                                    Ate it? Rate it
-                                </Typography>
-                            )}
-                        </Button>
-                        <Button variant="contained" onClick={handleSubmitListAdd} sx={{
-                            backgroundColor: theme.palette.mode === "dark" ? "black" : "white",
-                            border: theme.palette.mode === "dark" ? "2px solid white" : "",
-                            height: "40px",
-                            margin: "0.5rem",
-                            textTransform: "none",
-                            color: theme.palette.mode === "dark" ? dark : "#111",
-                            "&:hover": {
-                            backgroundColor: theme.palette.mode === "dark" ? "white" : "#0062ff",
-                            color: theme.palette.mode === "dark" ? "black" : "white",
-                        }
-                        }
-                        
-                        }>
-                            {ListIndexes.includes(prodData.id) ? (
-                                <Box display="flex" flexDirection="row" marginTop={1}>
-                                <Box color={ theme.palette.mode === "light" ? "#00c742" : "#00ff44"}>
-                                    <CheckIcon/>
-                                </Box>    
-                                <Typography>
-                                    Added to list
-                                </Typography>
-                            </Box>
-                            ) : 
-                            (<Box display="flex" flexDirection="row" marginTop={1}>
-                                <Box>
-                                    <BookmarkBorderIcon/>
-                                </Box>    
-                                <Typography>
-                                    Add to list
-                                </Typography>
-                            </Box>)} */}
-								{/* </Button> */}
+								
 							</Typography>
 							{
 								<Box>
 									<form action={`${apiUrl}/pay`} method='post'>
-										<input type='submit' style={{
-											width: "250px",
-											height: "40px",
-											backgroundColor: "#005eff",
-											borderRadius: "4px",
-											color: "white",
-											fontStyle: "italic",
-										}} onClick={handlePay} value="CONTINUE TO PAY WITH PAYPAL" />
+										<input type='submit'
+											className='w-[250px] h-[40px] bg-[#005eff] rounded-md text-white italic cursor-pointer hover:bg-blue-800'
+											onClick={handlePay} value="CONTINUE TO PAY WITH PAYPAL" />
 									</form>
-									<Box>
-										{/* {rateClicked && <Box display="flex" flexDirection="row">
-                            <Box>
-                                <Rating
-                                onClick={handleRating}
-                                onPointerEnter={handleEnter}
-                                onPointerLeave={handleLeave}
-                                onPointerMove={handleMove}
-                                />
-                            </Box>
-                            <Typography variant='h5' fontWeight="200" m={1}>
-                                Rate {prodData.name}
-                            </Typography>
-                        </Box>}
-                        {rateHover && <Typography variant='h7' fontWeight="200" marginLeft={9}>
-                            {RateEquivalentMessage}
-                        </Typography>} */}
-									</Box>
 								</Box>
 							}
 						</Box>
