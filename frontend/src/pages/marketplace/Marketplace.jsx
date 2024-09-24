@@ -43,39 +43,46 @@ const FoodGalleryPage = () => {
 
 	return (
 		<Box marginTop={5}>
-			<Box m={5} marginLeft={9} sx={{
-				border: "2px solid black",
-				bgcolor: "white",
-				width: "650px",
-			}}>
-				<InputBase
-					sx={{
-						width: "600px",
-						height: "40px",
-						input: {
-							cursor: "text",
-							paddingLeft: "1rem",
-							fontSize: "1rem",
-							color: "black",
-						},
-					}}
-					placeholder='Search for farm equipments'
-					value={search}
-					onChange={(e) => { setSearch(e.target.value) }}
-				/>
-				<IconButton>
-					<SearchIcon />
-				</IconButton>
-				<Button variant="contained" onClick={() => navigate(`/marketplace/sell`)} sx={{
+			<Box display="flex" flexDirection="row">
+				<Box m={5} marginTop={1} marginLeft={9} sx={{
+					border: "2px solid black",
+					bgcolor: "white",
+					width: "650px",
+				}}>
+					<InputBase
+						sx={{
+							width: "600px",
+							height: "40px",
+							input: {
+								cursor: "text",
+								paddingLeft: "1rem",
+								fontSize: "1rem",
+								color: "black",
+							},
+						}}
+						placeholder='Search for farm equipments'
+						value={search}
+						onChange={(e) => { setSearch(e.target.value) }}
+					/>
+					<IconButton>
+						<SearchIcon />
+					</IconButton>
+				</Box>
+				<Box>
+					<Button variant="contained" onClick={() => navigate(`/marketplace/sell`)} sx={{
 					height: "40px",
+					width: "100px",
 					margin: "0.5rem",
-					color: "#000",
+					color: "#fff",
 					"&:hover": {
 						backgroundColor: "#000"
 					}
 				}}>
-					SELL
+					<Typography style={{fontFamily: "Montserrat", fontWeight: "500"}}>  
+						SELL	
+					</Typography>
 				</Button>
+				</Box>
 			</Box>
 			{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>
 				Get your pesticides today...

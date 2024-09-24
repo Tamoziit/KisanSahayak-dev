@@ -1,5 +1,5 @@
 import React, { Component, useEffect, useState } from 'react'
-import { Text, TouchableOpacity, View, Image, ScrollView } from 'react-native'
+import { Text, TouchableOpacity, View, Image, ScrollView, ActivityIndicator } from 'react-native'
 import { Icon } from '@rneui/themed';
 import * as ImagePicker from "expo-image-picker";
 import tw from 'twrnc'
@@ -7,7 +7,8 @@ import { selectUser, setPredictionData } from '../../slices/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import * as Speech from "expo-speech"
 import { BarChart } from 'react-native-chart-kit';
-//import Predict from '../hooks/predict';
+import Predict from '../hooks/predict';
+import UseGetAnalysis from '../hooks/analysis';
 import { uploadBlobToCloudinary } from '../utils/uploadBlobToCloudinary';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary';
 //import toast from 'react-hot-toast';
@@ -35,22 +36,53 @@ const chartConfig = {
 
 const Home = () => {
   const [img, setImg] = useState('');
-  const [predicted, setPredicted] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [predicting, setPredicting] = useState(false);
   const [images, setImages] = useState<string[]>([]);
   const [uploadData, setUploadData] = useState<string[]>([]);
+  const [analysisData, setAnalysisData] = useState({});
   console.log(uploadData);
-  //const { getPredictions} = Predict();
+  console.log(analysisData);
+  
+  const { getPredictions } = Predict();
+  const { analysis } = UseGetAnalysis();
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const handleVoice = () => {
-    Speech.speak("नीचे दिया गया बार चार्ट 6 महीने की अवधि में गणना की गई वार्षिक वर्षा को दर्शाता है", {
-      language: "hi-IN",
+    Speech.speak(predictionsData.disease_details[0] + predictionsData.disease_details[1] || `Your crop ${predictionsData.crop} is healthy`, {
+      // language: "hi-IN",
       pitch: 0.05,
       volume: 10
     });
   }
 
-  const [predictionsData, setPredictionsData] = useState({});
+  const getAnalysis = async () => {
+    try{
+        const res = await analysis();
+        setAnalysisData(res);
+    } catch (err) {
+      console.log(err);
+    }
+	}
+
+  const [predictionsData, setPredictionsData] = useState({} as {
+    crop: string,
+    disease: string,
+    disease_details: string[],
+    hum: number,
+    location: string,
+    pesticides: string[],
+    rainAct: number,
+    rainDep: number,
+    rainNorm: number,
+    recomm: string[],
+    soil_K: number,
+    soil_N: number,
+    soil_P: number,
+    soil_pH: number,
+    temp: number,
+  });
+  console.log("predict: ", predictionsData);
   
   const sources = [
     {
@@ -126,7 +158,7 @@ const Home = () => {
 
   const handleUploadToCloudinary = async () => {
 		try {
-      setPredicted(true);
+      setUploading(true);
 			const uploadPromises = images.map(async (imageBlob) => {
         console.log(imageBlob);
 				const cloudinaryUrl = await uploadToCloudinary(imageBlob);        
@@ -135,6 +167,7 @@ const Home = () => {
 
 			const cloudinaryUrls = await Promise.all(uploadPromises);
 			setUploadData((prevData) => [...prevData, ...cloudinaryUrls]);
+      setUploading(false);
 		} catch (error) {
 			if (error instanceof Error) {
 				console.log("Error in uploading image", error.message);
@@ -152,10 +185,22 @@ const Home = () => {
   //   setImg(img);
   //   console.log(img);
   // }
+  const handlePredictions = async () => {
+		try {
+      setPredicting(true);
+			const predData = await getPredictions(uploadData);
+			setPredictionsData(predData);
+      setPredicting(false);
+		} catch (err) {
+			console.log(err);
+      ;
+		}
+	};
 
   const handlePredict = () => {
-    handleUploadToCloudinary();
-    handleVoice();
+    if (uploadData)
+        handlePredictions();
+    getAnalysis();
     // setPredictionsData(data);
     // dispatch(setPredictionData(data));
   }
@@ -259,15 +304,55 @@ const Home = () => {
           {images.length > 0 && <Image source={{uri: images[2]}} style={tw`self-center h-20 w-20`}/>}
         </View>
         {images.length > 2 && <TouchableOpacity
-        onPress={handlePredict} disabled={predicted} style={tw`mb-2`}>
-          <View style={tw`h-15 w-70 m-3 bg-blue-500 shadow-md self-center`}>
+        onPress={handleUploadToCloudinary} style={tw`mb-2`}>
+          <View style={tw`h-15 w-70 m-3 bg-blue-500 shadow-md flex-row self-center`}>
             <Text style={tw`text-xl text-white m-auto`}>
-              Predict
+                {uploading ? "Uploading" : "Upload"}
             </Text>
+              {uploading && <ActivityIndicator size="large" style={{marginLeft: 10}} />}
           </View>
         </TouchableOpacity>}
-        {Object.keys(predictionsData).length > 0 && <View style={tw`mt-18`}>
-                    <Text style={{alignSelf: 'center', fontFamily: "Poppins"}}>
+        {images.length > 2 && uploadData.length > 2 && <TouchableOpacity
+        onPress={handlePredict} style={tw`mb-2`}>
+          <View style={tw`h-15 w-70 bg-black shadow-md flex-row self-center`}>
+            <Text style={tw`text-xl text-white m-auto`}>
+              {predicting ? "Predicting" : "Predict"}
+            </Text>
+            {predicting && <ActivityIndicator size="large" style={{marginLeft: 10}} />}
+          </View>
+        </TouchableOpacity>}
+        {Object.keys(predictionsData).length > 0 && <View>
+          <View style={tw`p-3 pl-12`}>
+            <Text style={tw`text-xl`}>Summary</Text>
+              <TouchableOpacity onPress={handleVoice}>
+                <View style={tw`flex-row gap-1`}>
+                  <Icon name="sound" size={20} color="black" type='antdesign' />
+                  <Text>
+                    Listen to predictions voice-over
+                  </Text>
+                </View>
+              </TouchableOpacity>
+          </View>
+          <View style={tw`self-center flex-col gap-y-2`}>
+              <Text style={tw`flex-col`}>
+                Crop Name: {predictionsData.crop}
+              </Text>
+              <Text>
+                Disease: {predictionsData.disease}
+              </Text>
+              {predictionsData.disease_details.length > 0 && <Text style={tw`w-70`}>
+                Disease details: {predictionsData.disease_details}
+              </Text>}
+              {predictionsData.pesticides.length > 0 && <Text style={tw`w-70`}>
+                Pesticides: {predictionsData.pesticides.map((pest) => `${pest}, `)}
+              </Text>}
+              {predictionsData.recomm.length > 0 === null && <Text style={tw`w-70`}>
+                Recommendations: {predictionsData.recomm}
+              </Text>}
+            </View>
+          </View>}
+        {Object.keys(predictionsData).length > 0 && <View style={tw`mt-7`}>
+                    <Text style={{alignSelf: 'center'}}>
                         Annual Rainfall
                     </Text>
                     <BarChart

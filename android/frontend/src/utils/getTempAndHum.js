@@ -1,7 +1,8 @@
 import { fetchIPInfo } from "./getLocationAndWeatherData";
 
 export const getTempAndHum = async () => {
-    const key = import.meta.env.VITE_API_KEY;
+    //const key = import.meta.env.VITE_API_KEY;
+    const key = "34752c03213f4be0fc511f916d8d5195";
     const weatherData = await fetchIPInfo();
 
     const lat = weatherData.lat;

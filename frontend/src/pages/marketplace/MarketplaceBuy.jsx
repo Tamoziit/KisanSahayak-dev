@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import axios from "axios"
 import { Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
@@ -7,7 +7,7 @@ import useGetItemById from '../../hooks/useGetItemById';
 import { setProductPrice } from '../../state/reducer';
 
 const MarketplaceBuy = () => {
-	const prodData = useSelector((state) => state.productData);
+	//const prodData = useSelector((state) => state.productData);
 	const dispatch = useDispatch();
 	const apiUrl = import.meta.env.VITE_API_URL;
 
@@ -49,9 +49,10 @@ const MarketplaceBuy = () => {
 				<span className='text-[150px]'>Loading...</span>
 			) : (
 				<>
+				<Box display="flex">
 					<Box display="flex" flexDirection="column" alignItems="center">
 						<Box m={2} p={4} border={`2px solid black`} boxShadow={`5px 7px 2px 2px black`}>
-							<img width={1100} src={prodInfo?.image_url} />
+							<img width={500} src={prodInfo?.image_url} />
 						</Box>
 					</Box>
 					<Box display="flex" justifyContent="space-between" marginX={12} marginY={5}>
@@ -151,12 +152,10 @@ const MarketplaceBuy = () => {
 							{
 								<Box>
 									<form action={`${apiUrl}/pay`} method='post'>
-										<input type="text" onChange={handlePay} />
 										<input type='submit' style={{
-											width: "225px",
+											width: "250px",
 											height: "40px",
 											backgroundColor: "#005eff",
-											border: "1px solid white",
 											borderRadius: "4px",
 											color: "white",
 											fontStyle: "italic",
@@ -183,6 +182,7 @@ const MarketplaceBuy = () => {
 								</Box>
 							}
 						</Box>
+					</Box>
 					</Box>
 				</>
 			)}

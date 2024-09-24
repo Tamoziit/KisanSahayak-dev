@@ -1,4 +1,3 @@
-import toast from "react-hot-toast";
 import { env_data } from "../data/Rainfall_Soil.json";
 
 const getLocationAndWeather = async () => {
@@ -8,7 +7,6 @@ const getLocationAndWeather = async () => {
 
         return data;
     } catch (error) {
-        toast.error(error.message);
         console.log("Failed to fetch ip");
     }
 }
@@ -25,7 +23,6 @@ export const fetchIPInfo = async () => {
         console.log(data);
         return data;
     } catch (error) {
-        toast.error(error.message);
         console.log("Failed to fetch location");
     }
 }
@@ -42,13 +39,10 @@ export const fetchWeatherInfo = async () => {
             if (matchedDistrict) {
                 return matchedDistrict;
             } else {
-                toast.error(`No data found for the district: ${district.city}`);
             }
         } else {
-            toast.error("Could not retrieve district name");
         }
     } catch (error) {
-        toast.error(error.message);
         console.log("Failed to fetch weather info");
     }
 }

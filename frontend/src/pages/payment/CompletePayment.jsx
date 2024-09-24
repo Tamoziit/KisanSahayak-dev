@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, IconButton, Typography } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -41,7 +40,7 @@ const CompletePayment = () => {
                 </IconButton>
             <Box m={1}>
                 <Box display="flex" flexDirection="column">
-                    <Typography style={{fontSize: "3rem"}}>
+                    <Typography style={{fontSize: "4rem", fontFamily: "Montserrat"}}>
                         Payment Successful
                     </Typography>
                     <Typography> 
@@ -62,7 +61,7 @@ const CompletePayment = () => {
                             <ArrowOutwardIcon/>
                         </Box>
                     </Typography>
-                    <Typography display="flex" flexDirection="row" sx={{
+                    <Typography display="flex" flexDirection="row" onClick={() => navigate("/marketplace")} sx={{
                         fontSize: "14px",
                         textDecorationLine: "underline",
                         "&:hover": {

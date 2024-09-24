@@ -1,4 +1,3 @@
-import React from 'react'
 import { Box, Typography } from '@mui/material'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CancelIcon from '@mui/icons-material/Cancel';
@@ -23,7 +22,7 @@ const CancelPayment = () => {
             </Box>
             <Box m={10}>
                 <Box display="flex" flexDirection="column">
-                    <Typography style={{fontSize: "3rem"}}>
+                    <Typography style={{fontSize: "4rem", fontFamily: "Montserrat"}}>
                         Payment Cancelled
                     </Typography>
                     <Typography> 
@@ -33,7 +32,7 @@ const CancelPayment = () => {
                 <Box display="flex" flexDirection="row" justifyContent="space-between" marginTop={5}>
                     <Typography display="flex" flexDirection="row" onClick={() => navigate("/")} sx={{
                         textDecorationLine: "underline",
-                        fontSize: "16px",
+                        fontSize: "14px",
                         "&:hover": {
                             cursor: "pointer",
                             color: "#005eff"
@@ -44,9 +43,9 @@ const CancelPayment = () => {
                             <ArrowOutwardIcon/>
                         </Box>
                     </Typography>
-                    <Typography display="flex" flexDirection="row" sx={{
+                    <Typography display="flex" flexDirection="row" onClick={() => navigate("/marketplace")} sx={{
                         textDecorationLine: "underline",
-                        fontSize: "16px",
+                        fontSize: "14px",
                         "&:hover": {
                             cursor: "pointer",
                             color: "#005eff"
