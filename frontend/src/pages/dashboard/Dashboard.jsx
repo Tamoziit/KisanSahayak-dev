@@ -1,9 +1,9 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "../../utils/getLocationAndWeatherData";
 import RainfallChart from "../../components/analytics/RainfallChart";
 import SoilChart from "../../components/analytics/SoilChart";
 import useGetAnalysis from "../../hooks/useGetAnalysis";
+import Navbar from "../../components/navbars/Navbar-actions";
 
 const Dashboard = () => {
 	const [weatherData, setWeatherData] = useState(null);
@@ -32,10 +32,11 @@ const Dashboard = () => {
 	}, []);
 
 	return (
-		<div className="p-4">
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7">Regional Environmental Conditions Analysis</h1>
+		<div>
+			<Navbar />
+			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-4">Regional Environmental Conditions Analysis</h1>
 			{weatherData ? (
-				<div className="flex space-x-4 flex-col">
+				<div className="flex space-x-4 flex-col px-4">
 					<div className="flex gap-4">
 						<div className="w-1/2">
 							<RainfallChart data={weatherData} />
