@@ -6,6 +6,7 @@ import { base64ToBlob } from '../../utils/base64ToBlob';
 import toast from 'react-hot-toast';
 import Spinner from '../../components/Spinner';
 import useSellProduct from '../../hooks/useSellProduct';
+import Navbar from '../../components/navbars/Navbar-actions';
 
 const videoConstraints = {
 	width: 450,
@@ -66,6 +67,7 @@ const MarketplaceSell = () => {
 
 	return (
 		<>
+			<Navbar />
 			<div className='flex p-4 gap-1'>
 				{/* Camera */}
 				<div
