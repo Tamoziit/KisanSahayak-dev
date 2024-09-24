@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography } from '@mui/material'
+import { Box, IconButton, Typography } from '@mui/material';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 const styles = {
 
     checkIcon: {
-      width: 600,
-      height: 600,
+        width: 600,
+        height: 600,
     },
-  
-  };
+
+};
 
 const CompletePayment = () => {
     const navigate = useNavigate();
@@ -29,36 +29,36 @@ const CompletePayment = () => {
                 </Typography>
                 <CheckCircleIcon sx={{
                     color: "white"
-                }}/>
+                }} />
             </Box>
-                <IconButton iconStyle = {styles.checkIcon}>
-                    <CheckCircleIcon sx={{
-                        fontSize: "4rem",
-                        color: "#00ff6e",
-                        margin: 5
-                        }}/>
-                </IconButton>
+            <IconButton iconStyle={styles.checkIcon}>
+                <CheckCircleIcon sx={{
+                    fontSize: "4rem",
+                    color: "#00ff6e",
+                    margin: 5
+                }} />
+            </IconButton>
             <Box m={1}>
                 <Box display="flex" flexDirection="column">
                     <Typography style={{fontSize: "4rem", fontFamily: "Montserrat"}}>
                         Payment Successful
                     </Typography>
-                    <Typography> 
+                    <Typography>
                         Your order has been completed.
                     </Typography>
                 </Box>
                 <Box display="flex" flexDirection="row" justifyContent="space-between" marginTop={5}>
-                    <Typography display="flex" flexDirection="row" onClick={() => navigate("/")} sx={{
+                    <Typography display="flex" flexDirection="row" onClick={() => navigate("/home")} sx={{
                         textDecorationLine: "underline",
                         fontSize: "14px",
                         "&:hover": {
                             cursor: "pointer",
                             color: "#005eff"
-                            },
+                        },
                     }} variant='h6'>
                         Return back to home
                         <Box>
-                            <ArrowOutwardIcon/>
+                            <ArrowOutwardIcon />
                         </Box>
                     </Typography>
                     <Typography display="flex" flexDirection="row" onClick={() => navigate("/marketplace")} sx={{
@@ -66,13 +66,14 @@ const CompletePayment = () => {
                         textDecorationLine: "underline",
                         "&:hover": {
                             cursor: "pointer",
-                            
+
                             color: "#005eff"
-                            },
-                    }} variant='h6'>
+                        },
+                    }} variant='h6'
+                    >
                         Return back to marketplace
                         <Box>
-                            <ArrowOutwardIcon/>
+                            <ArrowOutwardIcon />
                         </Box>
                     </Typography>
                 </Box>

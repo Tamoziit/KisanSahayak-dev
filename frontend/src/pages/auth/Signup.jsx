@@ -6,6 +6,7 @@ import { FaBowlFood } from "react-icons/fa6";
 import { RiLockPasswordFill } from "react-icons/ri";
 import { HiMiniEyeSlash } from "react-icons/hi2";
 import useSignup from "../../hooks/useSignup";
+import Spinner from "../../components/Spinner";
 
 const SignUp = () => {
   const [inputs, setInputs] = useState({
@@ -86,6 +87,7 @@ const SignUp = () => {
                   e.preventDefault();
                   setSecure(!secure);
                 }}
+                className="bg-transparent hover:bg-slate-200"
               >
                 <HiMiniEyeSlash className="mr-4 text-gray-500" />
               </button>
@@ -173,7 +175,7 @@ const SignUp = () => {
 
           <div className="flex justify-center mt-8">
             <button className="w-full bg-yellow-700 text-white py-2 rounded-full hover:bg-yellow-600 transition-colors" disabled={loading}>
-              {loading ? <span className="loading loading-spinner"></span> : "Signup"}
+              {loading ? <Spinner /> : "Signup"}
             </button>
           </div>
 

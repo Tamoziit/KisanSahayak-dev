@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState } from "react";
+import { useState } from "react";
 import Logo from "../Assets/KisanSahayak.png";
 import { BsCart2 } from "react-icons/bs";
 import { HiOutlineBars3 } from "react-icons/hi2";
@@ -16,13 +15,14 @@ import InfoIcon from "@mui/icons-material/Info";
 import CommentRoundedIcon from "@mui/icons-material/CommentRounded";
 import PhoneRoundedIcon from "@mui/icons-material/PhoneRounded";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
+import { MdLogout } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import useLogout from "../hooks/useLogout";
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [openMenu, setOpenMenu] = useState(false);
-  const {loading, logout} = useLogout();
+  const { logout } = useLogout();
 
   const menuOptions = [
     {
@@ -44,14 +44,15 @@ const Navbar = () => {
     {
       text: "Cart",
       icon: <ShoppingCartRoundedIcon />,
-    },
+    }
   ];
+
   return (
-    <nav className="nav">
+    <nav>
       <div className="nav-logo-container">
-        <img src={Logo} alt="" style={{width: "90%", height: "30px"}}/>
+        <img src={Logo} alt="" className="h-[30px] w-full" />
       </div>
-      <div className="navbar-links-container">
+      <div className="navbar-links-container hidden md:flex ml-4">
         <a href="">Welcome</a>
         <a href="#testimonial-id">Statistics</a>
         <a href="#new-activities-id">New</a>
@@ -61,7 +62,7 @@ const Navbar = () => {
         </a>
         <button onClick={logout} className="primary-button">Logout</button>
       </div>
-      <div className="navbar-menu-container">
+      <div className="navbar-menu-container md:hidden">
         <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
       </div>
       <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="right">
@@ -82,6 +83,11 @@ const Navbar = () => {
             ))}
           </List>
           <Divider />
+
+          <div className="flex items-center gap-6 hover:bg-gray-100  px-4 m-1 cursor-pointer" onClick={logout}>
+            <button className="text-gray-500 bg-transparent border-none outline-none hover:bg-gray-100"><MdLogout className="w-[23px] h-[50px] object-cover" /></button>
+            <span>Logout</span>
+          </div>
         </Box>
       </Drawer>
     </nav>
