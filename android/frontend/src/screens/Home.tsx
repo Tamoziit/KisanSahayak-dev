@@ -11,6 +11,7 @@ import Predict from '../hooks/predict';
 import UseGetAnalysis from '../hooks/analysis';
 import { uploadBlobToCloudinary } from '../utils/uploadBlobToCloudinary';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary';
+import { useFonts } from 'expo-font';
 //import toast from 'react-hot-toast';
 
 const data = {
@@ -35,7 +36,11 @@ const chartConfig = {
 };
 
 const Home = () => {
-  const [img, setImg] = useState('');
+  const [loaded] = useFonts({
+    Montserrat: require("../../assets/fonts/Montserrat/static/Montserrat-Bold.ttf"),
+    Montserratm: require("../../assets/fonts/Montserrat/static/Montserrat-Medium.ttf"),
+})
+
   const [uploading, setUploading] = useState(false);
   const [predicting, setPredicting] = useState(false);
   const [images, setImages] = useState<string[]>([]);
@@ -203,10 +208,17 @@ const Home = () => {
     getAnalysis();
     // setPredictionsData(data);
     // dispatch(setPredictionData(data));
-  }
+}
+
+    const handleDeleteImages = () => {
+      setImages([]);
+      setUploadData([]);
+    }
+
+    if (loaded) 
     return (
     <ScrollView>
-      <View style={tw`flex-col`}>
+      <View style={tw`flex-col bg-white`}>
         <View style={tw`flex-row`}>
           {registeredCropsSource.map((crops) => {
               return (
@@ -234,7 +246,11 @@ const Home = () => {
           })
           }
         </View>
-        <Text style={tw`text-xl m-4 mb-2 pl-4`}> Revitalize Your Fields </Text>
+        <Text style={tw`text-xl m-4 mb-2 pl-4`}>
+          <Text style={{fontFamily: "Montserrat", fontSize: 17}}>
+           Revitalize Your Fields 
+          </Text>
+        </Text>
         <View style={tw`m-3 pt-4 shadow-md bg-white`}>
             <View style={tw`flex-row self-center mb-5`}>
               <View style={tw`flex-col self-center`}>
@@ -278,22 +294,22 @@ const Home = () => {
               </View>
             </View>
         </View>
-          <TouchableOpacity style={tw`m-3`} onPress={openCamera}>
+          <TouchableOpacity style={tw`m-3`} disabled={images.length > 2} onPress={openCamera}>
             <View style={tw`h-15 w-70 bg-black shadow-md self-center`}>
-              <Text style={tw`text-xl text-white m-auto`}>
+              <Text style={{fontFamily: "Montserratm", color: "white", margin: "auto", fontSize: 18}}>
                 Take a picture
               </Text>
             </View>
         </TouchableOpacity>
         <TouchableOpacity
-        onPress={choosePhotoFromGallery} style={tw`mb-3`}>
+        onPress={choosePhotoFromGallery} disabled={images.length > 2} style={tw`mb-3`}>
           <View style={tw`h-15 w-70 bg-green-500 shadow-md self-center`}>
-            <Text style={tw`text-xl text-white m-auto`}>
+            <Text style={{fontFamily: "Montserratm", color: "white", margin: "auto", fontSize: 18}}>
               Choose from gallery
             </Text>
           </View>
         </TouchableOpacity>
-        {images.length < 2 && <View style={tw`self-center`}>
+        {images.length < 3 && <View style={tw`self-center`}>
           <Text>
             Please take three pictures to proceed further
           </Text>
@@ -302,11 +318,22 @@ const Home = () => {
           {images.length > 0 && <Image source={{uri: images[0]}} style={tw`self-center h-20 w-20 mr-3`}/>}
           {images.length > 0 && <Image source={{uri: images[1]}} style={tw`self-center h-20 w-20 mr-3`}/>}
           {images.length > 0 && <Image source={{uri: images[2]}} style={tw`self-center h-20 w-20`}/>}
+          {images.length > 2 && <TouchableOpacity
+        onPress={handleDeleteImages} style={tw`mb-3`}>
+          <View style={tw`p-2`}>
+            <Icon name='delete' size={15} color="#a3a3a3" type='antdesign' />
+            <Text style={tw`text-[#a3a3a3] text-xs`}>
+              Delete
+            </Text>
+          </View>
+        </TouchableOpacity>}
         </View>
         {images.length > 2 && <TouchableOpacity
-        onPress={handleUploadToCloudinary} style={tw`mb-2`}>
+        onPress={handleUploadToCloudinary}
+        disabled={uploadData.length > 2}
+        style={tw`mb-2`}>
           <View style={tw`h-15 w-70 m-3 bg-blue-500 shadow-md flex-row self-center`}>
-            <Text style={tw`text-xl text-white m-auto`}>
+            <Text style={{fontFamily: "Montserratm", color: "white", margin: "auto", fontSize: 18}}>
                 {uploading ? "Uploading" : "Upload"}
             </Text>
               {uploading && <ActivityIndicator size="large" style={{marginLeft: 10}} />}
@@ -315,7 +342,7 @@ const Home = () => {
         {images.length > 2 && uploadData.length > 2 && <TouchableOpacity
         onPress={handlePredict} style={tw`mb-2`}>
           <View style={tw`h-15 w-70 bg-black shadow-md flex-row self-center`}>
-            <Text style={tw`text-xl text-white m-auto`}>
+            <Text style={{fontFamily: "Montserratm", color: "white", margin: "auto", fontSize: 18}}>
               {predicting ? "Predicting" : "Predict"}
             </Text>
             {predicting && <ActivityIndicator size="large" style={{marginLeft: 10}} />}
@@ -323,11 +350,11 @@ const Home = () => {
         </TouchableOpacity>}
         {Object.keys(predictionsData).length > 0 && <View>
           <View style={tw`p-3 pl-12`}>
-            <Text style={tw`text-xl`}>Summary</Text>
+            <Text style={{fontFamily: "Montserrat", fontSize: 20}}>{predictionsData.disease.replace(/_/g, " ")}</Text>
               <TouchableOpacity onPress={handleVoice}>
                 <View style={tw`flex-row gap-1`}>
-                  <Icon name="sound" size={20} color="black" type='antdesign' />
-                  <Text>
+                  <Icon name="sound" size={20} color="#1d4ed8" type='antdesign' />
+                  <Text style={{fontFamily: "Montserrat", color: "#1d4ed8"}}>
                     Listen to predictions voice-over
                   </Text>
                 </View>
@@ -338,7 +365,7 @@ const Home = () => {
                 Crop Name: {predictionsData.crop}
               </Text>
               <Text>
-                Disease: {predictionsData.disease}
+                Disease: {predictionsData.disease.replace(/_/g, " ")}
               </Text>
               {predictionsData.disease_details.length > 0 && <Text style={tw`w-70`}>
                 Disease details: {predictionsData.disease_details}

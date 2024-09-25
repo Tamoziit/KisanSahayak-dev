@@ -21,7 +21,7 @@ const UseGetAnalysis = () => {
                 hum: tempAndHum.avgHum
             }
                         
-            const data = await fetch("http://192.168.43.131:8000/analysis", {
+            const data = await fetch("http://10.0.2.2:8000/analysis", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

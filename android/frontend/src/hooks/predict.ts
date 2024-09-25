@@ -7,7 +7,7 @@ import { selectUser } from "../../slices/userSlice";
 const Predict = () => {
     const user = useSelector(selectUser);
     const [loading, setLoading] = useState(false);
-    const getPredictions = async (url: string) => {
+    const getPredictions = async (url: string[]) => {
         setLoading(true);
         try {
             const data = await fetchWeatherInfo();
