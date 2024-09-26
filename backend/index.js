@@ -15,6 +15,7 @@ import authRoutes from "./routes/auth.routes.js";
 import predictionRoutes from "./routes/predictions.routes.js";
 import marketplaceRoutes from "./routes/marketplace.routes.js";
 import elevatedUserRoutes from "./routes/elevatedUser.routes.js";
+import analysisRoutes from "./routes/analysis.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -50,6 +51,7 @@ app.use("/auth", authRoutes);
 app.use("/predictions", predictionRoutes);
 app.use("/marketplace", marketplaceRoutes);
 app.use("/elevatedUser", elevatedUserRoutes);
+app.use("/dashboard", analysisRoutes);
 
 const prices = [];
 app.post("/", async (req, res) => {

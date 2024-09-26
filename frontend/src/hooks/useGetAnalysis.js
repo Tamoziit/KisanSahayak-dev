@@ -4,6 +4,7 @@ import { getTempAndHum } from "../utils/getTempAndHum";
 
 const useGetAnalysis = () => {
     const [loading, setLoading] = useState(false);
+    const apiUrl = import.meta.env.VITE_API_URL;
 
     const analysis = async () => {
         setLoading(true);
@@ -21,7 +22,7 @@ const useGetAnalysis = () => {
                 hum: tempAndHum.avgHum
             }
 
-            const data = await fetch("http://127.0.0.1:8000/analysis", {
+            const data = await fetch(`${apiUrl}/dashboard/analysis`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
