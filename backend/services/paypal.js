@@ -1,7 +1,5 @@
 import axios from "axios";
-import dotenv from "dotenv";
-import prices from "../index.js";
-dotenv.config();
+import prices from "../controllers/payment.controller.js";
 
 async function generateAccessToken() {
     const response = await axios({

@@ -7,7 +7,6 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
-import createOrder from "./services/paypal.js"
 import { fileURLToPath } from "url";
 import { client } from "./redis/client.js";
 
@@ -16,6 +15,7 @@ import predictionRoutes from "./routes/predictions.routes.js";
 import marketplaceRoutes from "./routes/marketplace.routes.js";
 import elevatedUserRoutes from "./routes/elevatedUser.routes.js";
 import analysisRoutes from "./routes/analysis.routes.js";
+import paymentRoutes from "./routes/payment.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,33 +52,7 @@ app.use("/predictions", predictionRoutes);
 app.use("/marketplace", marketplaceRoutes);
 app.use("/elevatedUser", elevatedUserRoutes);
 app.use("/dashboard", analysisRoutes);
-
-const prices = [];
-app.post("/", async (req, res) => {
-    try {
-        const price = req.body;
-        console.log(price);
-        
-        prices.push(price);
-        console.log(prices);
-
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-})
-
-app.post("/pay", async (req, res) => {
-    try {
-        const price = req.body;
-        prices.push(price);
-        const url = await createOrder();
-        res.redirect(url);
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-})
-
-export default prices;
+app.use("/payment", paymentRoutes);
 
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL).then(() => {
