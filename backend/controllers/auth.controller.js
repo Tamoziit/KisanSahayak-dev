@@ -1,6 +1,7 @@
 import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
+import { client } from "../redis/client.js";
 
 export const register = async (req, res) => {
     try {
@@ -95,9 +96,10 @@ export const login = async (req, res) => {
     }
 }
 
-export const logout = (req, res) => {
+export const logout = async (req, res) => {
     try {
         res.cookie("jwt", "", { maxAge: 0 }); //Null cookie
+        await client.del("analysis");
         res.status(200).json({ message: "Logged out successfully" });
     } catch (err) {
         console.log("Error in Logging out", err.message);
