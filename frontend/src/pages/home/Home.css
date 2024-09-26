@@ -273,9 +273,7 @@ body {
 
 .contact-form-container input {
   flex: 1;
-  height: 100%;
-  border: none;
-  outline: none;
+  width: 100%;
   font-size: 1.3rem;
   padding: 0.5rem 1rem;
   margin: 10px;
