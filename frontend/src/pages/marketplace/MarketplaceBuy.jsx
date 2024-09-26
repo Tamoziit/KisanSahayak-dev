@@ -25,7 +25,7 @@ const MarketplaceBuy = () => {
 	const handlePay = () => {
 		try {
 			const priceBreakdown = [{ "totalPrice": prodInfo.price }];
-			axios.post(`${apiUrl}/`, { priceBreakdown })
+			axios.post(`${apiUrl}/payment/price`, { priceBreakdown })
 			dispatch(setProductPrice(prodInfo.price));
 		}
 		catch (err) {
@@ -80,7 +80,7 @@ const MarketplaceBuy = () => {
 								</Typography>
 								{
 									<Box>
-										<form action={`${apiUrl}/pay`} method='post'>
+										<form action={`${apiUrl}/payment/pay`} method='post'>
 											<input type='submit'
 												className='w-[250px] h-[40px] bg-[#005eff] rounded-md text-white italic cursor-pointer hover:bg-blue-800'
 												onClick={handlePay} value="CONTINUE TO PAY WITH PAYPAL" />
