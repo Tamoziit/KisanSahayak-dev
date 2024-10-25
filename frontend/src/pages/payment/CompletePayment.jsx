@@ -1,8 +1,10 @@
 import { Box, IconButton, Typography } from '@mui/material';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import useBuyItem from '../../hooks/useBuyItem';
 
 const styles = {
 
@@ -14,7 +16,23 @@ const styles = {
 };
 
 const CompletePayment = () => {
+    const location = useLocation();
     const navigate = useNavigate();
+    const { loading, buy } = useBuyItem();
+
+    /*useEffect(() => {
+        buyItem();
+    }, []);*/
+
+    const buyItem = async () => {
+        const queryParams = new URLSearchParams(location.search);
+        const session_id = queryParams.get('session_id');
+        const order_id = queryParams.get('order_id');
+
+        console.log({ session_id, order_id });
+        await buy({ order_id, session_id });
+    }
+
     const totalPrice = useSelector((state) => state.productPrice);
     return (
         <Box display="flex" flexDirection="column" alignItems="center">
@@ -40,7 +58,7 @@ const CompletePayment = () => {
             </IconButton>
             <Box m={1}>
                 <Box display="flex" flexDirection="column">
-                    <Typography style={{fontSize: "4rem", fontFamily: "Montserrat"}}>
+                    <Typography style={{ fontSize: "4rem", fontFamily: "Montserrat" }}>
                         Payment Successful
                     </Typography>
                     <Typography>
@@ -77,6 +95,8 @@ const CompletePayment = () => {
                         </Box>
                     </Typography>
                 </Box>
+
+                <button onClick={buyItem} disabled={loading}>Confirm</button>
             </Box>
         </Box>
     )

@@ -5,7 +5,7 @@ const useBuyItem = () => {
     const [loading, setLoading] = useState();
     const apiUrl = import.meta.env.VITE_API_URL;
 
-    const buy = async (id) => {
+    const buy = async ({ order_id, session_id }) => {
         setLoading(true)
         try {
             const res = await fetch(`${apiUrl}/marketplace/buy`, {
@@ -13,7 +13,7 @@ const useBuyItem = () => {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify(id)
+                body: JSON.stringify({ order_id, session_id })
             });
 
             const data = await res.json();

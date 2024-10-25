@@ -9,6 +9,7 @@ const useHandlePay = () => {
 
 	const handlePay = async (prodInfo) => {
         const body = {
+			id: prodInfo._id,
             product_name: prodInfo.product_name,
             product_description: `${prodInfo.seller_name} | ${prodInfo.seller_type}`,
             price: prodInfo.price,
