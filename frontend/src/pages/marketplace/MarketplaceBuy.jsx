@@ -1,19 +1,17 @@
 import { useEffect, useState } from 'react'
-import { useDispatch } from 'react-redux';
-import axios from "axios"
+//import { useDispatch } from 'react-redux';
 import { Box, Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import useGetItemById from '../../hooks/useGetItemById';
-import { setProductPrice } from '../../state/reducer';
+//import { setProductPrice } from '../../state/reducer';
 import Navbar from '../../components/navbars/Navbar-actions';
+import useHandlePay from '../../hooks/useHandlePay';
 
 const MarketplaceBuy = () => {
 	//const prodData = useSelector((state) => state.productData);
-	const dispatch = useDispatch();
-	const apiUrl = import.meta.env.VITE_API_URL;
-
+	//const dispatch = useDispatch();
 	const [prodInfo, setProdInfo] = useState(null);
-
+	const { payLoading, handlePay } = useHandlePay();
 	const { id } = useParams();
 	const { loading, product } = useGetItemById();
 
@@ -22,14 +20,11 @@ const MarketplaceBuy = () => {
 		return res;
 	};*/
 
-	const handlePay = () => {
-		try {
-			const priceBreakdown = [{ "totalPrice": prodInfo.price }];
-			axios.post(`${apiUrl}/payment/price`, { priceBreakdown })
-			dispatch(setProductPrice(prodInfo.price));
-		}
-		catch (err) {
-			console.log(err);
+	const handlePayInit = async () => {
+		const response = await handlePay(prodInfo);
+		
+		if (response.url) {
+			window.location.href = response.url;
 		}
 	}
 
@@ -80,10 +75,10 @@ const MarketplaceBuy = () => {
 								</Typography>
 								{
 									<Box>
-										<form action={`${apiUrl}/payment/pay`} method='post'>
+										<form>
 											<input type='submit'
 												className='w-[250px] h-[40px] bg-[#005eff] rounded-md text-white italic cursor-pointer hover:bg-blue-800'
-												onClick={handlePay} value="CONTINUE TO PAY WITH PAYPAL" />
+												onClick={handlePayInit} disabled={payLoading} value="CONTINUE TO PAY WITH STRIPE" />
 										</form>
 									</Box>
 								}
