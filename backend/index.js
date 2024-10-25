@@ -16,6 +16,7 @@ import marketplaceRoutes from "./routes/marketplace.routes.js";
 import elevatedUserRoutes from "./routes/elevatedUser.routes.js";
 import analysisRoutes from "./routes/analysis.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
+import stripe from "./stripe/stripeInit.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,10 +60,17 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
     app.listen(PORT, () => {
         console.log(`Server PORT: ${PORT}`);
         console.log("Connected to MongoDB");
+
         if (client) {
             console.log("Connected to Redis");
         } else {
             console.log("Error in connecting to Redis");
+        }
+
+        if(stripe) {
+            console.log("Stripe Initialized");
+        } else {
+            console.log("Error in connecting to Stripe");
         }
     });
 }).catch((error) => console.log(`${error} did not connect`));

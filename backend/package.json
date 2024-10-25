@@ -12,7 +12,8 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.6.0",
     "morgan": "^1.10.0",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "stripe": "^17.2.1"
   },
   "name": "kisan-sahayak",
   "description": "",
