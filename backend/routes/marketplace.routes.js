@@ -8,6 +8,6 @@ router.post("/sell", sellItem);
 router.get("/explore/:id", getAllItems);
 router.get("/sold/:id", getMySellings);
 router.get("/:id", getItemById);
-router.delete("/buy", buyItem);
+router.post("/buy", buyItem);
 
 export default router;

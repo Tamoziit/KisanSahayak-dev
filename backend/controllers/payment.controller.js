@@ -2,7 +2,7 @@ import stripe from "../stripe/stripeInit.js";
 
 export const paymentHandler = async (req, res) => {
     const baseUrl = process.env.BASE_URL;
-    const { product_name, product_description, price, imageUrl } = req.body;
+    const { id, product_name, product_description, price, imageUrl } = req.body;
 
     try {
         const session = await stripe.checkout.sessions.create({
@@ -38,8 +38,11 @@ export const paymentHandler = async (req, res) => {
                     }
                 }
             ],
-            success_url: `${baseUrl}/complete-order?session_id={CHECKOUT_SESSION_ID}&order_id=12345`,
+            success_url: `${baseUrl}/complete-order?session_id={CHECKOUT_SESSION_ID}&order_id=${id}`,
             cancel_url: `${baseUrl}/cancel-order?reason=user_cancelled`,
+            metadata: {
+                orderId: id,
+            },
             allow_promotion_codes: true
         });
 

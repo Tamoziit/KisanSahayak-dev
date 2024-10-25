@@ -74,8 +74,10 @@ export const getItemById = async (req, res) => {
 
 export const buyItem = async (req, res) => {
     try {
-        const { id } = req.body;
-        const deletedProduct = await Product.findByIdAndDelete(id);
+        const { order_id, session_id } = req.body;
+        console.log({ order_id, session_id })
+        const deletedProduct = await Product.deleteOne({ _id: order_id });
+        console.log(deletedProduct);
 
         if (deletedProduct) {
             res.status(200).json({ success: "Product bought successfully" });
