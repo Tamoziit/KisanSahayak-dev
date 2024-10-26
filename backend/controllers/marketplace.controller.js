@@ -1,4 +1,5 @@
 import Product from "../models/marketplace.model.js";
+import stripe from "../stripe/stripeInit.js";
 
 export const sellItem = async (req, res) => {
     try {
@@ -78,6 +79,13 @@ export const buyItem = async (req, res) => {
         console.log({ order_id, session_id })
         const deletedProduct = await Product.deleteOne({ _id: order_id });
         console.log(deletedProduct);
+
+        const session = await stripe.checkout.sessions.retrieve(session_id, {
+            expand: ['payment_intent.payment_method']
+        });
+
+        const response = JSON.stringify(session);
+        console.log(response);
 
         if (deletedProduct) {
             res.status(200).json({ success: "Product bought successfully" });
