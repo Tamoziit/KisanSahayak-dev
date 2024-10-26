@@ -3,7 +3,6 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 import useBuyItem from '../../hooks/useBuyItem';
 
 const styles = {
@@ -19,10 +18,6 @@ const CompletePayment = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { loading, buy } = useBuyItem();
-
-    /*useEffect(() => {
-        buyItem();
-    }, []);*/
 
     const buyItem = async () => {
         const queryParams = new URLSearchParams(location.search);

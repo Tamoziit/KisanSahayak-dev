@@ -1,0 +1,241 @@
+{
+    "id": "cs_test_b1c1PNBRnqYqTjQZWzH8KMyt3wvyIsH3kyr8jtLltv9WOKM1X5OQLucRdX",
+    "object": "checkout.session",
+    "after_expiration": null,
+    "allow_promotion_codes": true,
+    "amount_subtotal": 15000,
+    "amount_total": 19600,
+    "automatic_tax": {
+        "enabled": false,
+        "liability": null,
+        "status": null
+    },
+    "billing_address_collection": "required",
+    "cancel_url": "http://localhost:5173/cancel-order?reason=user_cancelled",
+    "client_reference_id": null,
+    "client_secret": null,
+    "consent": null,
+    "consent_collection": null,
+    "created": 1729925588,
+    "currency": "inr",
+    "currency_conversion": null,
+    "custom_fields": [],
+    "custom_text": {
+        "after_submit": null,
+        "shipping_address": null,
+        "submit": null,
+        "terms_of_service_acceptance": null
+    },
+    "customer": null,
+    "customer_creation": "if_required",
+    "customer_details": {
+        "address": {
+            "city": "Kolkata",
+            "country": "IN",
+            "line1": "15, Babutala Road",
+            "line2": "Nager Bazar, Dum Dum",
+            "postal_code": "700074",
+            "state": "WB"
+        },
+        "email": "tamojitdas181007@gmail.com",
+        "name": "Tamojit Das",
+        "phone": "+919874891354",
+        "tax_exempt": "none",
+        "tax_ids": []
+    },
+    "customer_email": null,
+    "expires_at": 1730011988,
+    "invoice": null,
+    "invoice_creation": {
+        "enabled": false,
+        "invoice_data": {
+            "account_tax_ids": null,
+            "custom_fields": null,
+            "description": null,
+            "footer": null,
+            "issuer": null,
+            "metadata": {},
+            "rendering_options": null
+        }
+    },
+    "livemode": false,
+    "locale": null,
+    "metadata": {
+        "orderId": "66f570428134e60effa46864"
+    },
+    "mode": "payment",
+    "payment_intent": {
+        "id": "pi_3QE3teGyZo9Ax1mc1HCBiVSG",
+        "object": "payment_intent",
+        "amount": 19600,
+        "amount_capturable": 0,
+        "amount_details": {
+            "tip": {}
+        },
+        "amount_received": 19600,
+        "application": null,
+        "application_fee_amount": null,
+        "automatic_payment_methods": null,
+        "canceled_at": null,
+        "cancellation_reason": null,
+        "capture_method": "automatic_async",
+        "client_secret": "pi_3QE3teGyZo9Ax1mc1HCBiVSG_secret_A2r0smE87v8mMKEUE3sbRbQ4v",
+        "confirmation_method": "automatic",
+        "created": 1729925690,
+        "currency": "inr",
+        "customer": null,
+        "description": null,
+        "invoice": null,
+        "last_payment_error": null,
+        "latest_charge": "ch_3QE3teGyZo9Ax1mc1zaWWRK1",
+        "livemode": false,
+        "metadata": {},
+        "next_action": null,
+        "on_behalf_of": null,
+        "payment_method": {
+            "id": "pm_1QE3tbGyZo9Ax1mcXsQj38Bc",
+            "object": "payment_method",
+            "allow_redisplay": "limited",
+            "billing_details": {
+                "address": {
+                    "city": "Kolkata",
+                    "country": "IN",
+                    "line1": "15, Babutala Road",
+                    "line2": "Nager Bazar, Dum Dum",
+                    "postal_code": "700074",
+                    "state": "WB"
+                },
+                "email": "tamojitdas181007@gmail.com",
+                "name": "Tamojit Das",
+                "phone": null
+            },
+            "card": {
+                "brand": "visa",
+                "checks": {
+                    "address_line1_check": "pass",
+                    "address_postal_code_check": "pass",
+                    "cvc_check": "pass"
+                },
+                "country": "US",
+                "display_brand": "visa",
+                "exp_month": 9,
+                "exp_year": 2028,
+                "fingerprint": "Iz7rdxhWu1zeExrC",
+                "funding": "credit",
+                "generated_from": null,
+                "last4": "4242",
+                "networks": {
+                    "available": [
+                        "visa"
+                    ],
+                    "preferred": null
+                },
+                "three_d_secure_usage": {
+                    "supported": true
+                },
+                "wallet": null
+            },
+            "created": 1729925687,
+            "customer": null,
+            "livemode": false,
+            "metadata": {},
+            "type": "card"
+        },
+        "payment_method_configuration_details": null,
+        "payment_method_options": {
+            "card": {
+                "installments": null,
+                "mandate_options": null,
+                "network": null,
+                "request_three_d_secure": "automatic"
+            }
+        },
+        "payment_method_types": [
+            "card"
+        ],
+        "processing": null,
+        "receipt_email": null,
+        "review": null,
+        "setup_future_usage": null,
+        "shipping": {
+            "address": {
+                "city": "Kolkata",
+                "country": "IN",
+                "line1": "15, Babutala Road",
+                "line2": "Nager Bazar, Dum Dum",
+                "postal_code": "700074",
+                "state": "WB"
+            },
+            "carrier": null,
+            "name": "Tamojit Das",
+            "phone": null,
+            "tracking_number": null
+        },
+        "source": null,
+        "statement_descriptor": null,
+        "statement_descriptor_suffix": null,
+        "status": "succeeded",
+        "transfer_data": null,
+        "transfer_group": null
+    },
+    "payment_link": null,
+    "payment_method_collection": "if_required",
+    "payment_method_configuration_details": {
+        "id": "pmc_1QDr4qGyZo9Ax1mcSjb0MFQL",
+        "parent": null
+    },
+    "payment_method_options": {
+        "card": {
+            "request_three_d_secure": "automatic"
+        }
+    },
+    "payment_method_types": [
+        "card"
+    ],
+    "payment_status": "paid",
+    "phone_number_collection": {
+        "enabled": true
+    },
+    "recovered_from": null,
+    "saved_payment_method_options": null,
+    "setup_intent": null,
+    "shipping_address_collection": {
+        "allowed_countries": [
+            "IN"
+        ]
+    },
+    "shipping_cost": {
+        "amount_subtotal": 4600,
+        "amount_tax": 0,
+        "amount_total": 4600,
+        "shipping_rate": "shr_1QE3s0GyZo9Ax1mc3cOjpWuE"
+    },
+    "shipping_details": {
+        "address": {
+            "city": "Kolkata",
+            "country": "IN",
+            "line1": "15, Babutala Road",
+            "line2": "Nager Bazar, Dum Dum",
+            "postal_code": "700074",
+            "state": "WB"
+        },
+        "name": "Tamojit Das"
+    },
+    "shipping_options": [
+        {
+            "shipping_amount": 4600,
+            "shipping_rate": "shr_1QE3s0GyZo9Ax1mc3cOjpWuE"
+        }
+    ],
+    "status": "complete",
+    "submit_type": null,
+    "subscription": null,
+    "success_url": "http://localhost:5173/complete-order?session_id={CHECKOUT_SESSION_ID}&order_id=66f570428134e60effa46864",
+    "total_details": {
+        "amount_discount": 0,
+        "amount_shipping": 4600,
+        "amount_tax": 0
+    },
+    "ui_mode": "hosted",
+    "url": null
+}
