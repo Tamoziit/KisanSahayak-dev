@@ -127,3 +127,24 @@ export const buyItem = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+export const getMyOrders = async (req, res) => {
+    try {
+        const userOrders = await Order.findOne({ user: req.params.id });
+        if (!userOrders) {
+            return res.status(400).json({ error: "No orders found" });
+        }
+
+        const orderIds = userOrders.orders;
+        const orders = await Payment.find({ _id: { $in: orderIds } });
+
+        if (orders) {
+            res.status(200).json(orders);
+        } else {
+            res.status(400).json({ error: "Error in Fetching orders" });
+        }
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}

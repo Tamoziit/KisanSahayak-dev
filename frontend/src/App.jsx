@@ -17,6 +17,7 @@ import CancelPayment from "./pages/payment/CancelPayment";
 import { useEffect } from "react";
 import MyListings from "./pages/marketplace/MyListings";
 import Gratitude from "./pages/gratitude/Gratitude";
+import Orders from "./pages/marketplace/Orders";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/marketplace/sell" element={authUser ? <MarketplaceSell /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/buy/:id" element={authUser ? <MarketplaceBuy /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/my-listings" element={authUser ? <MyListings /> : <Navigate to={"/"} />} />
+          <Route path="/marketplace/orders" element={authUser ? <Orders /> : <Navigate to={"/"} />} />
           <Route path="/complete-order" element={authUser ? <CompletePayment /> : <Navigate to={"/"} />} />
           <Route path="/cancel-order" element={authUser ? <CancelPayment /> : <Navigate to={"/"} />} />
           <Route path="/gratitude" element={authUser ? <Gratitude /> : <Navigate to={"/"} />} />
