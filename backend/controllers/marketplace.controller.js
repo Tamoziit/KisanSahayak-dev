@@ -1,4 +1,6 @@
 import Product from "../models/marketplace.model.js";
+import Order from "../models/order.model.js";
+import Payment from "../models/payment.model.js";
 import stripe from "../stripe/stripeInit.js";
 
 export const sellItem = async (req, res) => {
@@ -75,22 +77,50 @@ export const getItemById = async (req, res) => {
 
 export const buyItem = async (req, res) => {
     try {
-        const { order_id, session_id } = req.body;
-        console.log({ order_id, session_id })
-        const deletedProduct = await Product.deleteOne({ _id: order_id });
-        console.log(deletedProduct);
+        const { order_id, session_id, user_id } = req.body;
+        console.log({ order_id, session_id, user_id });
 
+        const product = await Product.findById(order_id);
         const session = await stripe.checkout.sessions.retrieve(session_id, {
             expand: ['payment_intent.payment_method']
         });
 
-        const response = JSON.stringify(session);
-        console.log(response);
+        if (product && session) {
+            const newPayment = new Payment({
+                product_id: order_id,
+                payment_intent_id: session.payment_intent.id,
+                product_name: product.product_name,
+                image_url: product.image_url,
+                seller: product.seller,
+                seller_name: product.seller_name,
+                seller_type: product.seller_type,
+                amount: session.payment_intent.amount / 100,
+                customer_name: session.customer_details.name,
+                customer_email: session.customer_details.email,
+                customer_mobile: session.customer_details.phone,
+                delivery: `${session.payment_intent.shipping.address.line1}, ${session.payment_intent.shipping.address.line2}, ${session.payment_intent.shipping.address.city} - ${session.payment_intent.shipping.address.postal_code}, ${session.payment_intent.shipping.address.state}, ${session.payment_intent.shipping.address.country}`
+            });
 
-        if (deletedProduct) {
-            res.status(200).json({ success: "Product bought successfully" });
-        } else {
-            res.status(400).json({ error: "Error in buying the product" });
+            if (newPayment) {
+                let order = await Order.findOne({ user: user_id });
+                if (!order) {
+                    order = await Order.create({ user: user_id });
+                }
+                order.orders.push(newPayment._id);
+
+                await Promise.all([order.save(), newPayment.save()]);
+            } else {
+                return res.status(400).json({ error: "Could not process payment, Refund will be processed within 5-7 days" });
+            }
+
+            const deletedProduct = await Product.deleteOne({ _id: order_id });
+            console.log(deletedProduct);
+
+            if (deletedProduct) {
+                res.status(200).json({ success: "Product bought successfully" });
+            } else {
+                res.status(400).json({ error: "Error in buying the product" });
+            }
         }
     } catch (err) {
         console.log(err.message)
