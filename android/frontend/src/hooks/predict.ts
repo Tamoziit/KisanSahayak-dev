@@ -27,7 +27,7 @@ const Predict = () => {
                 hum: tempAndHum.avgHum
             }
 
-            const predictions = await fetch("http://192.168.43.131:3001/predictions/upload", {
+            const predictions = await fetch("http://192.168.170.212:3001/predictions/upload", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -35,7 +35,8 @@ const Predict = () => {
                 body: JSON.stringify(fetchData)
             });
             const predictedData = await predictions.json();
-
+            console.log(predictedData);
+            
             return predictedData;
         } catch (err) {
             console.log(err);

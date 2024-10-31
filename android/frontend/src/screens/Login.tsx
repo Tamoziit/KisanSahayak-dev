@@ -9,6 +9,8 @@ import MultiSelect from 'react-native-multiple-select';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setUserData } from '../../slices/userSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuthContext } from '../context/AuthContext';
 
 const cropData = [{
   id: 'rice',
@@ -32,6 +34,7 @@ const Login = () => {
     const navigation: any = useNavigation();
     const dispatch = useDispatch();
     const [selectedItems, setSelectedItems] = useState([]);
+    const { authUser, setAuthUser } = useAuthContext();
     const [form, setForm] = useState({
         name: '',
         gender: '',
@@ -50,7 +53,7 @@ const Login = () => {
     //     return <AppLoading/>
 
     const handleRegister = () => {
-      axios.post("http://192.168.228.212:3001/auth/register", form)
+      axios.post("http://192.168.170.212:3001/auth/register", form)
       .then(res => console.log(res))
       .catch(err => console.log(err)
       )
@@ -68,7 +71,7 @@ const Login = () => {
 
     const handleLogin = async () => {
       const loginForm = {phoneno: form.phoneno, password: form.password}
-      const loggedInResponse = await fetch("http://192.168.43.131:3001/auth/login", {
+      const loggedInResponse = await fetch("http://192.168.170.212:3001/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(loginForm),
@@ -89,6 +92,8 @@ const Login = () => {
           password: '',
           crops: [],
         });
+        await AsyncStorage.setItem("KS-user", JSON.stringify(loggedIn));
+        setAuthUser(loggedIn);
         navigation.navigate("MainContainer");
       }
       

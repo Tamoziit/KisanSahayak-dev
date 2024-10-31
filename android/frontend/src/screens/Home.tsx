@@ -12,7 +12,10 @@ import UseGetAnalysis from '../hooks/analysis';
 import { uploadBlobToCloudinary } from '../utils/uploadBlobToCloudinary';
 import { uploadToCloudinary } from '../utils/uploadToCloudinary';
 import { useFonts } from 'expo-font';
+import { LogBox } from 'react-native';
 //import toast from 'react-hot-toast';
+
+LogBox.ignoreLogs(["Warning: ..."]);
 
 const data = {
   labels: ["January", "February", "March", "April", "May", "June"],
@@ -48,6 +51,7 @@ const Home = () => {
   const [analysisData, setAnalysisData] = useState({});
   console.log(uploadData);
   console.log(analysisData);
+  const maleVoice = 'en-us-x-sfg#male_1-local';
   
   const { getPredictions } = Predict();
   const { analysis } = UseGetAnalysis();
@@ -56,8 +60,9 @@ const Home = () => {
   const handleVoice = () => {
     Speech.speak(predictionsData.disease_details[0] + predictionsData.disease_details[1] || `Your crop ${predictionsData.crop} is healthy`, {
       // language: "hi-IN",
-      pitch: 0.05,
-      volume: 10
+      pitch: 0.0,
+      rate: 1.0,
+      voice: maleVoice
     });
   }
 
@@ -217,7 +222,7 @@ const Home = () => {
 
     if (loaded) 
     return (
-    <ScrollView>
+    <ScrollView style={tw`bg-white`}>
       <View style={tw`flex-col bg-white`}>
         <View style={tw`flex-row`}>
           {registeredCropsSource.map((crops) => {
