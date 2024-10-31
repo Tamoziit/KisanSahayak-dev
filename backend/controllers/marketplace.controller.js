@@ -67,7 +67,7 @@ export const getItemById = async (req, res) => {
         if (product) {
             res.status(200).json(product);
         } else {
-            res.status(404).json({ error: "Cannot get product" });
+            res.status(400).json({ error: "Cannot get product" });
         }
     } catch (err) {
         console.log(err.message)

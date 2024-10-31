@@ -48,7 +48,7 @@ function App() {
           <Route path="/dashboard" element={authUser ? <Dashboard /> : <Navigate to={"/"} />} />
           <Route path="/marketplace" element={authUser ? <MarketPlace /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/sell" element={authUser ? <MarketplaceSell /> : <Navigate to={"/"} />} />
-          <Route path="/marketplace/buy/:id" element={authUser ? <MarketplaceBuy /> : <Navigate to={"/"} />} />
+          <Route path="/marketplace/buy/:id" element={authUser ? <MarketplaceBuy /> : <Navigate to={"/"} />} exact />
           <Route path="/marketplace/my-listings" element={authUser ? <MyListings /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/orders" element={authUser ? <Orders /> : <Navigate to={"/"} />} />
           <Route path="/complete-order" element={authUser ? <CompletePayment /> : <Navigate to={"/"} />} />

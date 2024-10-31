@@ -22,18 +22,18 @@ const MarketplaceBuy = () => {
 
 	const handlePayInit = async () => {
 		const response = await handlePay(prodInfo);
-		
+
 		if (response.url) {
 			window.location.href = response.url;
 		}
 	}
 
-	useEffect(() => {
-		const getProduct = async () => {
-			const data = await product(id);
-			setProdInfo(data);
-		}
+	const getProduct = async () => {
+		const data = await product(id);
+		setProdInfo(data);
+	}
 
+	useEffect(() => {
 		getProduct();
 	}, []);
 
