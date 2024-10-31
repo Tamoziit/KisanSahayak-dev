@@ -1,11 +1,16 @@
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
+import { client } from "../redis/client.js";
 
 const verifyToken = async (req, res, next) => {
     try {
-        const token = req.cookies.jwt; //fetching current cookies
-        console.log(token);
+        const payload = await client.get("user");
+        if (!payload) {
+            return res.status(401).json({ error: "Unauthorized - No User Data in Cache, Login first" });
+        }
 
+        const data = JSON.parse(payload);
+        const token = data.token //fetching current jwt token
         if (!token) {
             return res.status(401).json({ error: "Unauthorized - No Token Provided" });
         }
