@@ -1,0 +1,12 @@
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NzIzNGQyYjg2ZGM0NjhjZTFlZWM3MDgiLCJpYXQiOjE3MzAzNjY3NjMsImV4cCI6MTczMjk1ODc2M30.U99K2KHMz-4N6PgQDHYB9HYgo3Ch_Ak0NkUmgDWkosw",
+    "_id": "67234d2b86dc468ce1eec708",
+    "name": "New Account 2",
+    "password": "$2a$12$SqHgXJAWbdT8.XhSR0FYBuyPi73bfH/i40hOEWEe64BdztCJRWoPO",
+    "gender": "F",
+    "dob": "07/04/2003",
+    "phoneno": "7439011647",
+    "crops": [
+        "bajra"
+    ]
+}

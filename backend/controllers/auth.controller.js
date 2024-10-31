@@ -47,7 +47,20 @@ export const register = async (req, res) => {
 
         if (newUser) {
             await newUser.save();
-            generateTokenAndSetCookie(newUser._id, res);
+            const token = generateTokenAndSetCookie(newUser._id, res);
+            const payload = {
+                token: token,
+                _id: newUser._id,
+                name: newUser.name,
+                password: newUser.password,
+                gender: newUser.gender,
+                dob: newUser.dob,
+                phoneno: newUser.phoneno,
+                crops: newUser.crops
+            }
+
+            await client.set("user", JSON.stringify(payload));
+            await client.expire("user", 30 * 60);
 
             res.status(201).json({
                 _id: newUser._id,
@@ -80,7 +93,20 @@ export const login = async (req, res) => {
         }
 
         res.cookie("jwt", "", { maxAge: 0 });
-        generateTokenAndSetCookie(user._id, res);
+        const token = generateTokenAndSetCookie(user._id, res);
+        const payload = {
+            token: token,
+            _id: user._id,
+            name: user.name,
+            password: user.password,
+            gender: user.gender,
+            dob: user.dob,
+            phoneno: user.phoneno,
+            crops: user.crops
+        }
+
+        await client.set("user", JSON.stringify(payload));
+        await client.expire("user", 30 * 60);
 
         res.status(200).json({
             _id: user._id,
@@ -100,6 +126,8 @@ export const logout = async (req, res) => {
     try {
         res.cookie("jwt", "", { maxAge: 0 }); //Null cookie
         await client.del("analysis");
+        await client.del("user");
+
         res.status(200).json({ message: "Logged out successfully" });
     } catch (err) {
         console.log("Error in Logging out", err.message);
