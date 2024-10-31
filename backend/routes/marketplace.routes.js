@@ -4,11 +4,11 @@ import { buyItem, getAllItems, getItemById, getMyOrders, getMySellings, sellItem
 
 const router = express.Router();
 
-router.post("/sell", sellItem);
-router.get("/explore/:id", getAllItems);
-router.get("/sold/:id", getMySellings);
-router.get("/:id", getItemById);
-router.post("/buy", buyItem);
-router.get("/orders/:id", getMyOrders);
+router.post("/sell", verifyToken, sellItem);
+router.get("/explore/:id", verifyToken, getAllItems);
+router.get("/sold/:id", verifyToken, getMySellings);
+router.get("/:id", verifyToken, getItemById);
+router.post("/buy", verifyToken, buyItem);
+router.get("/orders/:id", verifyToken, getMyOrders);
 
 export default router;
