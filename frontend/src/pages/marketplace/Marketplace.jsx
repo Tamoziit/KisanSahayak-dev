@@ -99,6 +99,20 @@ const FoodGalleryPage = () => {
 								MY LISTINGS
 							</Typography>
 						</Button>
+
+						<Button variant="contained" onClick={() => navigate(`/marketplace/orders`)} sx={{
+							height: "40px",
+							width: "100px",
+							margin: "0.5rem",
+							color: "#fff",
+							"&:hover": {
+								backgroundColor: "#000"
+							}
+						}}>
+							<Typography style={{ fontFamily: "Montserrat", fontWeight: "500" }}>
+								MY ORDERS
+							</Typography>
+						</Button>
 					</Box>
 				</Box>
 				{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>
