@@ -60,7 +60,7 @@ export const register = async (req, res) => {
             }
 
             await client.set("user", JSON.stringify(payload));
-            await client.expire("user", 30 * 60);
+            await client.expire("user", 30 * 24 * 60 * 60);
 
             res.status(201).json({
                 _id: newUser._id,
@@ -106,7 +106,7 @@ export const login = async (req, res) => {
         }
 
         await client.set("user", JSON.stringify(payload));
-        await client.expire("user", 30 * 60);
+        await client.expire("user", 30 * 24 * 60 * 60);
 
         res.status(200).json({
             _id: user._id,

@@ -5,12 +5,14 @@ import { client } from "../redis/client.js";
 const verifyToken = async (req, res, next) => {
     try {
         const payload = await client.get("user");
+        //console.log(payload);
         if (!payload) {
             return res.status(401).json({ error: "Unauthorized - No User Data in Cache, Login first" });
         }
 
         const data = JSON.parse(payload);
         const token = data.token //fetching current jwt token
+        //console.log([data, token]);
         if (!token) {
             return res.status(401).json({ error: "Unauthorized - No Token Provided" });
         }
