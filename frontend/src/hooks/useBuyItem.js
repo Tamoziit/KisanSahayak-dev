@@ -1,12 +1,10 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useAuthContext } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
 
 const useBuyItem = () => {
     const [payLoading, setLoading] = useState();
     const { authUser } = useAuthContext();
-    const navigate = useNavigate();
     const apiUrl = import.meta.env.VITE_API_URL;
 
     const buy = async ({ order_id, session_id }) => {
@@ -32,7 +30,7 @@ const useBuyItem = () => {
 
             if (data) {
                 toast.success("Item Bought successfully");
-                navigate("/gratitude");
+                return data;
             }
         } catch (error) {
             toast.error(error.message);
