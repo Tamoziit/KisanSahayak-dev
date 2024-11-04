@@ -117,7 +117,19 @@ export const buyItem = async (req, res) => {
             console.log(deletedProduct);
 
             if (deletedProduct) {
-                res.status(200).json({ success: "Product bought successfully" });
+                res.status(200).json({
+                    product_id: newPayment.product_id,
+                    product_name: newPayment.product_name,
+                    image_url: newPayment.image_url,
+                    seller: newPayment.seller,
+                    seller_name: newPayment.seller_name,
+                    seller_type: newPayment.seller_type,
+                    amount: newPayment.amount,
+                    customer_name: newPayment.customer_name,
+                    customer_email: newPayment.customer_email,
+                    customer_mobile: newPayment.customer_mobile,
+                    delivery: newPayment.delivery
+                });
             } else {
                 res.status(400).json({ error: "Error in buying the product" });
             }
