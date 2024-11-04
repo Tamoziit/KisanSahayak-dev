@@ -2,7 +2,7 @@ import { useState } from "react";
 
 const useGetItemById = () => {
     const [loading, setLoading] = useState(false);
-    const apiUrl = "http://192.168.170.212:3001";
+    const apiUrl = "http://192.168.142.212:3001";
 
     const product = async (id) => {
         setLoading(true);

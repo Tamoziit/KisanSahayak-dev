@@ -18,7 +18,7 @@ const MyListings = () => {
   }, []);
 
   return (
-    <View style={tw`flex-1 items-center justify-start bg-white`}>
+    <View style={tw`p-4 bg-white`}>
       <Text style={tw`mt-3 text-4xl font-bold text-gray-700`}>My Listings</Text>
 
       {loading ? (

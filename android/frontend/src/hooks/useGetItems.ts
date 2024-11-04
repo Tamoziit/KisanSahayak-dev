@@ -3,7 +3,7 @@ import { useAuthContext } from "../context/AuthContext";
 
 const useGetItems = () => {
     const [loading, setLoading] = useState(false);
-    const apiUrl = "http://192.168.170.212:3001";
+    const apiUrl = "http://192.168.142.212:3001";
     console.log(apiUrl);
     
     const { authUser } = useAuthContext();

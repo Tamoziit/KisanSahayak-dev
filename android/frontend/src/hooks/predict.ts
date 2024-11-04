@@ -27,7 +27,7 @@ const Predict = () => {
                 hum: tempAndHum.avgHum
             }
 
-            const predictions = await fetch("http://192.168.170.212:3001/predictions/upload", {
+            const predictions = await fetch("http://192.168.142.212:3001/predictions/upload", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

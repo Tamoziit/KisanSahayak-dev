@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState } from "react"
 import { fetchWeatherInfo } from "../utils/getLocationAndWeatherData";
 import { getTempAndHum } from "../utils/getTempAndHum";
 
-const UseGetAnalysis = () => {
+const useGetAnalysis = () => {
     const [loading, setLoading] = useState(false);
+    const apiUrl = "http://192.168.142.212:3001";
 
     const analysis = async () => {
         setLoading(true);
@@ -20,18 +21,18 @@ const UseGetAnalysis = () => {
                 temp: tempAndHum.avgTemp,
                 hum: tempAndHum.avgHum
             }
-                        
-            const data = await fetch("http://10.0.2.2:8000/analysis", {
+
+            const data = await fetch(`${apiUrl}/dashboard/analysis`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify(fetchData)
-            });            
+            });
             const res = await data.json();
             return res;
-        } catch (err) {
-            console.log(err);
+        } catch (error) {
+            console.log(error);
         } finally {
             setLoading(false);
         }
@@ -39,4 +40,4 @@ const UseGetAnalysis = () => {
     return { loading, analysis }
 }
 
-export default UseGetAnalysis;
+export default useGetAnalysis;

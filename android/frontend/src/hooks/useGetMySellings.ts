@@ -3,7 +3,7 @@ import { useAuthContext } from "../context/AuthContext";
 
 const useGetMySellings = () => {
     const [loading, setLoading] = useState(false);
-    const apiUrl = "http://192.168.170.212:3001";
+    const apiUrl = "http://192.168.142.212:3001";
     const { authUser } = useAuthContext();
 
     const sellings = async () => {

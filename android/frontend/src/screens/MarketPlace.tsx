@@ -43,12 +43,12 @@ const MarketPlace = () => {
 			<View style={tw`flex-row justify-around my-2`}>
 				<Button
 					title="SELL"
-					color="#000"
+					color="#0000ff"
 					onPress={() => navigation.navigate('Sell')}
 				/>
 				<Button
 					title="MY LISTINGS"
-					color="#000"
+					color="#0000ff"
 					onPress={() => navigation.navigate('MyListings')}
 				/>
 			</View>

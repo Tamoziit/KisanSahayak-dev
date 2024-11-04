@@ -6,7 +6,7 @@ const useSellProduct = () => {
     const { authUser } = useAuthContext();
     console.log(authUser);
     
-    const apiUrl = "http://192.168.170.212:3001";
+    const apiUrl = "http://192.168.142.212:3001";
 
     const sell = async ({
         product_name,
