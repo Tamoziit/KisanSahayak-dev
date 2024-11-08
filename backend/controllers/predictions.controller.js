@@ -70,3 +70,37 @@ export const uploadAndPredict = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const getPredictions = async (req, res) => {
+  try {
+    const predictions = await Prediction.find({});
+    console.log(predictions.length);
+    res.status(200).json(predictions);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+export const getPredictionById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const prediction = await Prediction.find({ _id: id });
+    res.status(200).json(prediction);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+export const getMyHistory = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const predictions = await Prediction.find({ userId: id });
+    console.log(predictions.length);
+    res.status(200).json(predictions);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
