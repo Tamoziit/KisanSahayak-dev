@@ -1,4 +1,5 @@
 import Prediction from "../models/predictions.model.js";
+import { client } from "../redis/client.js";
 
 export const uploadAndPredict = async (req, res) => {
   try {
@@ -61,6 +62,7 @@ export const uploadAndPredict = async (req, res) => {
 
     if (newPrediction) {
       const prediction = await newPrediction.save();
+      await client.del(`userHistory:${userId}`);
       res.status(201).json(prediction);
     } else {
       res.status(400).json({ error: "Invalid parameters" });
@@ -70,3 +72,46 @@ export const uploadAndPredict = async (req, res) => {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
+export const getPredictions = async (req, res) => {
+  try {
+    const predictions = await Prediction.find({});
+    console.log(predictions.length);
+    res.status(200).json(predictions);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+export const getPredictionById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const prediction = await Prediction.find({ _id: id });
+    res.status(200).json(prediction);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
+
+export const getMyHistory = async (req, res) => {
+  try {
+    const userId = req.params.id;
+
+    const cachedHistory = await client.get(`userHistory:${userId}`);
+    if (cachedHistory) {
+      console.log(cachedHistory);
+      return res.status(200).json(JSON.parse(cachedHistory));
+    }
+
+    const predictions = await Prediction.find({ userId: userId });
+    console.log(predictions.length);
+    await client.set(`userHistory:${userId}`, JSON.stringify(predictions));
+    await client.expire(`userHistory:${userId}`, 30 * 24 * 60 * 60);
+    res.status(200).json(predictions);
+  } catch (err) {
+    console.log(err.message)
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+}
