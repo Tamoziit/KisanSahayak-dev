@@ -1,4 +1,5 @@
 import Prediction from "../models/predictions.model.js";
+import { client } from "../redis/client.js";
 
 export const uploadAndPredict = async (req, res) => {
   try {
@@ -61,6 +62,7 @@ export const uploadAndPredict = async (req, res) => {
 
     if (newPrediction) {
       const prediction = await newPrediction.save();
+      await client.del(`userHistory:${userId}`);
       res.status(201).json(prediction);
     } else {
       res.status(400).json({ error: "Invalid parameters" });
@@ -95,9 +97,18 @@ export const getPredictionById = async (req, res) => {
 
 export const getMyHistory = async (req, res) => {
   try {
-    const id = req.params.id;
-    const predictions = await Prediction.find({ userId: id });
+    const userId = req.params.id;
+
+    const cachedHistory = await client.get(`userHistory:${userId}`);
+    if (cachedHistory) {
+      console.log(cachedHistory);
+      return res.status(200).json(JSON.parse(cachedHistory));
+    }
+
+    const predictions = await Prediction.find({ userId: userId });
     console.log(predictions.length);
+    await client.set(`userHistory:${userId}`, JSON.stringify(predictions));
+    await client.expire(`userHistory:${userId}`, 30 * 24 * 60 * 60);
     res.status(200).json(predictions);
   } catch (err) {
     console.log(err.message)
