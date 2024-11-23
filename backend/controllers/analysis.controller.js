@@ -1,3 +1,4 @@
+import Prediction from "../models/predictions.model.js";
 import { client } from "../redis/client.js";
 
 export const analysis = async (req, res) => {
@@ -38,3 +39,38 @@ export const analysis = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+export const analysis2 = async (req, res) => {
+    try {
+        const id = req.params.id;
+        const predictions = await Prediction.find({ userId: id });
+
+        if (predictions) {
+            const diseaseFrequency = {};
+            const pesticideFrequency = {};
+
+            /* Creating Hash Map of pesticides & diseases */
+            predictions.forEach((prediction) => {
+                if (prediction.disease) {
+                    diseaseFrequency[prediction.disease] = (diseaseFrequency[prediction.disease] || 0) + 1;
+                }
+
+                if (prediction.pesticides && prediction.pesticides.length > 0) {
+                    prediction.pesticides.forEach((pesticide) => {
+                        pesticideFrequency[pesticide] = (pesticideFrequency[pesticide] || 0) + 1;
+                    });
+                }
+            });
+
+            res.status(200).json({
+                diseaseFrequency,
+                pesticideFrequency,
+            });
+        } else {
+            res.status(404).json({ error: "No predictions found for this user" });
+        }
+    } catch (err) {
+        console.log(err.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};

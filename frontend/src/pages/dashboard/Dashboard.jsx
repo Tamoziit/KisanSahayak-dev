@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react"
 import { fetchWeatherInfo } from "../../utils/getLocationAndWeatherData";
 import RainfallChart from "../../components/analytics/RainfallChart";
@@ -5,15 +6,27 @@ import SoilChart from "../../components/analytics/SoilChart";
 import useGetAnalysis from "../../hooks/useGetAnalysis";
 import Navbar from "../../components/navbars/Navbar-actions";
 import Spinner from "../../components/Spinner";
+import useGetPersonalizedAnalysis from "../../hooks/useGetPersonalizedAnalysis";
+import DiseaseChart from "../../components/analytics/DiseaseChart";
+import PesticideChart from "../../components/analytics/PesticideChart";
 
 const Dashboard = () => {
 	const [weatherData, setWeatherData] = useState(null);
 	const [analysisData, setAnanlysisData] = useState(null);
 	const { loading, analysis } = useGetAnalysis();
+	const { loading: enloading, personalizedAnalysis } = useGetPersonalizedAnalysis();
+	const [diseaseFrequency, setDiseaseFrequency] = useState({});
+	const [pesticideFrequency, setPesticideFrequency] = useState({});
 
 	const getAnalysis = async () => {
 		const res = await analysis();
 		setAnanlysisData(res);
+	}
+
+	const getPersonalizedAnalysis = async () => {
+		const data = await personalizedAnalysis();
+		setDiseaseFrequency(data.diseaseFrequency);
+		setPesticideFrequency(data.pesticideFrequency);
 	}
 
 	useEffect(() => {
@@ -30,6 +43,7 @@ const Dashboard = () => {
 
 		getWeatherData();
 		getAnalysis();
+		getPersonalizedAnalysis();
 	}, []);
 
 	return (
@@ -61,7 +75,7 @@ const Dashboard = () => {
 
 							<div className="w-1/2">
 								<span className="font-semibold text-lg">Diseases your crops are most prone to</span>
-								<ul className="pl-2 pt-2 list-disc list-insideFF">
+								<ul className="pl-2 pt-2 list-disc list-inside">
 									{analysisData.predictions.diseases.map((disease, idx) => (
 										<li key={idx}>{disease}</li>
 									))}
@@ -72,6 +86,27 @@ const Dashboard = () => {
 				</div>
 			) : (
 				<h1 className="text-center"><Spinner /></h1>
+			)}
+
+			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-8">Personalized Analysis</h1>
+			{enloading ? (
+				<Spinner />
+			) : (
+				<div className="flex space-x-4 flex-col px-4 mb-10">
+					{diseaseFrequency && pesticideFrequency ? (
+						<div className="flex gap-4">
+							<div className="w-1/2">
+								<DiseaseChart diseaseFrequency={diseaseFrequency} />
+							</div>
+
+							<div className="w-1/2">
+								<PesticideChart pesticideFrequency={pesticideFrequency} />
+							</div>
+						</div>
+					) : (
+						<span>No Data Available as of now</span>
+					)}
+				</div>
 			)}
 		</div>
 	)
