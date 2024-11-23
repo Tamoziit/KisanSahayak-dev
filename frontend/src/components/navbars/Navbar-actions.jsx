@@ -11,7 +11,7 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import HomeIcon from "@mui/icons-material/Home";
 import { IoCloudUpload } from "react-icons/io5";
-import { FaCamera } from "react-icons/fa";
+import { FaCamera, FaHistory } from "react-icons/fa";
 import { MdAnalytics } from "react-icons/md";
 import ShoppingCartRoundedIcon from "@mui/icons-material/ShoppingCartRounded";
 import { MdLogout } from "react-icons/md";
@@ -47,6 +47,11 @@ const Navbar = () => {
             text: "MarketPlace",
             icon: <ShoppingCartRoundedIcon />,
             link: "/marketplace"
+        },
+        {
+            text: "History",
+            icon: <FaHistory />,
+            link: "/history"
         }
     ];
 
@@ -60,6 +65,7 @@ const Navbar = () => {
                 <Link to="/upload">Upload</Link>
                 <Link to="/capture">Capture</Link>
                 <Link to="/dashboard">Dashboard</Link>
+                <Link to="/history">History</Link>
                 <Link to="/marketplace"><BsCart2 /></Link>
                 <button onClick={logout} className="primary-button">Logout</button>
             </div>

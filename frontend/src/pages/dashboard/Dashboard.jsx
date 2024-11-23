@@ -4,6 +4,7 @@ import RainfallChart from "../../components/analytics/RainfallChart";
 import SoilChart from "../../components/analytics/SoilChart";
 import useGetAnalysis from "../../hooks/useGetAnalysis";
 import Navbar from "../../components/navbars/Navbar-actions";
+import Spinner from "../../components/Spinner";
 
 const Dashboard = () => {
 	const [weatherData, setWeatherData] = useState(null);
@@ -70,7 +71,7 @@ const Dashboard = () => {
 					)}
 				</div>
 			) : (
-				<h1 className="text-center">Loading...</h1>
+				<h1 className="text-center"><Spinner /></h1>
 			)}
 		</div>
 	)

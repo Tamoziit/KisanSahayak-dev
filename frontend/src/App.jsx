@@ -18,6 +18,7 @@ import { useEffect } from "react";
 import MyListings from "./pages/marketplace/MyListings";
 import Gratitude from "./pages/gratitude/Gratitude";
 import Orders from "./pages/marketplace/Orders";
+import History from "./pages/history/History";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -46,6 +47,7 @@ function App() {
           <Route path="/capture" element={authUser ? <Capture /> : <Navigate to={"/"} />} />
           <Route path="/upload" element={authUser ? <Upload /> : <Navigate to={"/"} />} />
           <Route path="/dashboard" element={authUser ? <Dashboard /> : <Navigate to={"/"} />} />
+          <Route path="/history" element={authUser ? <History /> : <Navigate to={"/"} />} />
           <Route path="/marketplace" element={authUser ? <MarketPlace /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/sell" element={authUser ? <MarketplaceSell /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/buy/:id" element={authUser ? <MarketplaceBuy /> : <Navigate to={"/"} />} exact />
