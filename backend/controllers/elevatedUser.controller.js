@@ -1,4 +1,5 @@
 import Prediction from "../models/predictions.model.js";
+import { client } from "../redis/client.js";
 
 export const updateThread = async (req, res) => {
     try {
@@ -8,6 +9,7 @@ export const updateThread = async (req, res) => {
         });
 
         if (predictions) {
+            await client.del(`userHistory:${predictions.userId}`)
             res.status(200).json(predictions);
         } else {
             res.staus(400).json({ error: "Couldn't Update the entry" });

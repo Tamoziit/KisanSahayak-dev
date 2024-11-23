@@ -21,6 +21,9 @@ const NewActivity = () => {
         <button className="primary-button-new w-full">
           <Link to="/history" className="w-full block text-center">My History</Link>
         </button>
+        <button className="primary-button-new w-full">
+          <Link to="/elevated-user/records" className="w-full block text-center">Contribute</Link>
+        </button>
       </div>
     </div>
   );
