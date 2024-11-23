@@ -124,9 +124,12 @@ export const login = async (req, res) => {
 
 export const logout = async (req, res) => {
     try {
+        const userId = req.params.id;
+        
         res.cookie("jwt", "", { maxAge: 0 }); //Null cookie
         await client.del("analysis");
         await client.del("user");
+        await client.del(`userHistory:${userId}`);
 
         res.status(200).json({ message: "Logged out successfully" });
     } catch (err) {

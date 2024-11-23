@@ -91,7 +91,7 @@ export const getPredictions = async (req, res) => {
 export const getPredictionById = async (req, res) => {
   try {
     const id = req.params.id;
-    const prediction = await Prediction.find({ _id: id });
+    const prediction = await Prediction.findById(id);
     res.status(200).json(prediction);
   } catch (err) {
     console.log(err.message)

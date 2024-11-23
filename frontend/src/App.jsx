@@ -19,6 +19,8 @@ import MyListings from "./pages/marketplace/MyListings";
 import Gratitude from "./pages/gratitude/Gratitude";
 import Orders from "./pages/marketplace/Orders";
 import History from "./pages/history/History";
+import Records from "./pages/elevatedUser/records/Records";
+import Update from "./pages/elevatedUser/update/Update";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -56,6 +58,8 @@ function App() {
           <Route path="/complete-order" element={authUser ? <CompletePayment /> : <Navigate to={"/"} />} />
           <Route path="/cancel-order" element={authUser ? <CancelPayment /> : <Navigate to={"/"} />} />
           <Route path="/gratitude" element={authUser ? <Gratitude /> : <Navigate to={"/"} />} />
+          <Route path="/elevated-user/records" element={authUser ? <Records /> : <Navigate to={"/"} />} />
+          <Route path="/elevated-user/record/:id" element={authUser ? <Update /> : <Navigate to={"/"} />} />
         </Routes>
 
         <Toaster />
