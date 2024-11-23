@@ -61,7 +61,7 @@ cd ../ML
 pip install -r requirements.txt
 ```
 
-## Usage
+## Website Usage
 Once the project is set up, you can start the web application using the following command on your root directory:
 
 ```bash
@@ -107,8 +107,8 @@ These features are in development and will be added to future versions of KisanS
 
 ## Team Members
 This project is a collaborative effort by:
-- **Sagnik Basak** (Team Leader) - Machine Learning & Data Analysis Development
-- **Tamojit Das** – Full Stack Development & Application System Design
+- **Sagnik Basak** (Team Leader) - Machine Learning Engineer & Data Analyst
+- **Tamojit Das** – Full Stack Development, Application System Design & Project Manager
 - **Ankan Das** – DL Model Design & Development
 - **Debeshee Sen** – Full Stack Development & UI/UX Design
 - **Titas Kabiraj** – Front End, UI/UX Design & Documentation
