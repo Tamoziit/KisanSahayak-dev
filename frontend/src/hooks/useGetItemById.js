@@ -11,7 +11,8 @@ const useGetItemById = () => {
             const res = await fetch(`${apiUrl}/marketplace/${id}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
                 }
             });
             const data = await res.json();

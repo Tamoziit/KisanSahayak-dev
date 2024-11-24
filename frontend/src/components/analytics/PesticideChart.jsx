@@ -7,7 +7,7 @@ const PesticideChart = ({ pesticideFrequency }) => {
 
     return (
         <div>
-            <FrequencyChart labels={labels} data={data} title="Pesticide Frequency" head="Most suggested Pesticides for You" />
+            <FrequencyChart labels={labels} data={data} title="Pesticide Frequency" head="Most suggested Pesticides for You" backgroundColour="rgba(192, 75, 75, 0.2)" />
         </div>
     );
 };

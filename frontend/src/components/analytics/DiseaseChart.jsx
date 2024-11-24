@@ -7,7 +7,7 @@ const DiseaseChart = ({ diseaseFrequency }) => {
 
     return (
         <div>
-            <FrequencyChart labels={labels} data={data} title="Disease Frequency" head="Most Predicted Diseases" />
+            <FrequencyChart labels={labels} data={data} title="Disease Frequency" head="Most Predicted Diseases" backgroundColour="rgba(75, 75, 192, 0.2)" />
         </div>
     );
 };

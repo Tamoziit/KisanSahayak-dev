@@ -45,8 +45,6 @@ const Dashboard = () => {
 		getAnalysis();
 		getPersonalizedAnalysis();
 	}, []);
-	console.log(diseaseFrequency);
-	console.log(pesticideFrequency.length);
 
 	return (
 		<div>

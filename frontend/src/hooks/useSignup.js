@@ -28,7 +28,8 @@ const useSignup = () => {
 			const res = await fetch(`${apiUrl}/auth/register`, {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
 				},
 				body: JSON.stringify({ name, phoneno, password, dob, gender, crops })
 			});
@@ -38,6 +39,7 @@ const useSignup = () => {
 				throw new Error(data.error);
 			}
 
+			localStorage.setItem("KS-token", data.token);
 			localStorage.setItem("KS-user", JSON.stringify(data));
 			setAuthUser(data);
 

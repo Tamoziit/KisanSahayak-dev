@@ -14,7 +14,8 @@ const useUpdateRecord = () => {
             const res = await fetch(`${apiUrl}/elevatedUser/update/${id}`, {
                 method: "PATCH",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
                 },
                 body: JSON.stringify({crop, disease, disease_details, recomm, pesticides})
             });

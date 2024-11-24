@@ -59,17 +59,20 @@ export const register = async (req, res) => {
                 crops: newUser.crops
             }
 
-            await client.set("user", JSON.stringify(payload));
-            await client.expire("user", 30 * 24 * 60 * 60);
+            await client.set(`user:${newUser._id}`, JSON.stringify(payload));
+            await client.expire(`user:${newUser._id}`, 30 * 24 * 60 * 60);
 
-            res.status(201).json({
-                _id: newUser._id,
-                name: newUser.name,
-                gender: newUser.gender,
-                dob: newUser.dob,
-                phoneno: newUser.phoneno,
-                crops: newUser.crops
-            });
+            res.status(201)
+                .header("Authorization", `Bearer ${token}`) // Setting Authorization header
+                .json({
+                    _id: newUser._id,
+                    name: newUser.name,
+                    gender: newUser.gender,
+                    dob: newUser.dob,
+                    phoneno: newUser.phoneno,
+                    crops: newUser.crops,
+                    token
+                });
         } else {
             res.status(400).json({ error: "Invalid user data" });
         }
@@ -105,17 +108,20 @@ export const login = async (req, res) => {
             crops: user.crops
         }
 
-        await client.set("user", JSON.stringify(payload));
-        await client.expire("user", 30 * 24 * 60 * 60);
+        await client.set(`user:${user._id}`, JSON.stringify(payload));
+        await client.expire(`user:${user._id}`, 30 * 24 * 60 * 60);
 
-        res.status(200).json({
-            _id: user._id,
-            name: user.name,
-            gender: user.gender,
-            dob: user.dob,
-            phoneno: user.phoneno,
-            crops: user.crops
-        });
+        res.status(200)
+            .header("Authorization", `Bearer ${token}`)
+            .json({
+                _id: user._id,
+                name: user.name,
+                gender: user.gender,
+                dob: user.dob,
+                phoneno: user.phoneno,
+                crops: user.crops,
+                token
+            });
     } catch (err) {
         console.log("Error in Logging in", err.message);
         res.status(500).json({ error: err.message });
@@ -125,10 +131,10 @@ export const login = async (req, res) => {
 export const logout = async (req, res) => {
     try {
         const userId = req.params.id;
-        
+
         res.cookie("jwt", "", { maxAge: 0 }); //Null cookie
         await client.del(`analysis:${userId}`);
-        await client.del("user");
+        await client.del(`user:${userId}`);
         await client.del(`userHistory:${userId}`);
 
         res.status(200).json({ message: "Logged out successfully" });

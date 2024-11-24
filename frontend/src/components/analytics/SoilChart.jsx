@@ -20,7 +20,7 @@ const SoilChart = (weatherData) => {
             {
                 label: 'Mineral Content (% conc.) & pH level',
                 data: [weatherData.data.N, weatherData.data.K, weatherData.data.P, weatherData.data.pH], // Y-axis values
-                backgroundColor: 'rgba(195x, 192, 192, 0.8)',
+                backgroundColor: 'rgba(90, 170, 60, 0.2)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
             },

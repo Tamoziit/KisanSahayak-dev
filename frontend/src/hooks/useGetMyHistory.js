@@ -13,7 +13,8 @@ const useGetMyHistory = () => {
             const res = await fetch(`${apiUrl}/predictions/history/${authUser._id}`, {
                 method: "GET",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
                 }
             });
             const data = await res.json();
