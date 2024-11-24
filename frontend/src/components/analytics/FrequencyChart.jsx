@@ -2,7 +2,7 @@
 import { useEffect, useRef } from 'react';
 import { Chart } from 'chart.js/auto';
 
-const FrequencyChart = ({ labels, data, title, head }) => {
+const FrequencyChart = ({ labels, data, title, head, backgroundColour }) => {
     const chartRef = useRef(null);
 
     useEffect(() => {
@@ -20,8 +20,8 @@ const FrequencyChart = ({ labels, data, title, head }) => {
                 datasets: [{
                     label: title,
                     data: data,
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: backgroundColour,
+                    borderColor: 'rgba(192, 192, 192, 1)',
                     borderWidth: 1
                 }]
             },
