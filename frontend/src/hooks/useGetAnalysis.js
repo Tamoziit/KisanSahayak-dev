@@ -1,10 +1,12 @@
 import { useState } from "react"
 import { fetchWeatherInfo } from "../utils/getLocationAndWeatherData";
 import { getTempAndHum } from "../utils/getTempAndHum";
+import { useAuthContext } from "../context/AuthContext";
 
 const useGetAnalysis = () => {
     const [loading, setLoading] = useState(false);
     const apiUrl = import.meta.env.VITE_API_URL;
+    const { authUser } = useAuthContext();
 
     const analysis = async () => {
         setLoading(true);
@@ -22,7 +24,7 @@ const useGetAnalysis = () => {
                 hum: tempAndHum.avgHum
             }
 
-            const data = await fetch(`${apiUrl}/dashboard/analysis`, {
+            const data = await fetch(`${apiUrl}/dashboard/analysis/${authUser._id}`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

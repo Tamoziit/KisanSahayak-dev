@@ -40,7 +40,7 @@ const History = () => {
 									))}
 								</div>
 							) : (
-								<span className="text-gray-500">No History Available</span>
+								<span className="text-lg text-gray-500">No History Available</span>
 							)}
 						</div>
 					)}
