@@ -21,6 +21,8 @@ const useLogout = () => {
       if (data.error) {
         throw new Error(data.error);
       }
+
+      localStorage.removeItem("KS-token");
       localStorage.removeItem("KS-user");
       setAuthUser(null);
 

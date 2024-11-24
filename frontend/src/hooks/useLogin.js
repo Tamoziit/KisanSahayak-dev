@@ -17,7 +17,8 @@ const useLogin = () => {
 			const res = await fetch(`${apiUrl}/auth/login`, {
 				method: "POST",
 				headers: {
-					"Content-Type": "application/json"
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
 				},
 				body: JSON.stringify({ phoneno, password })
 			});
@@ -26,6 +27,8 @@ const useLogin = () => {
 			if (data.error) {
 				throw new Error(data.error)
 			}
+
+			localStorage.setItem("KS-token", data.token);
 			localStorage.setItem("KS-user", JSON.stringify(data));
 			setAuthUser(data);
 			

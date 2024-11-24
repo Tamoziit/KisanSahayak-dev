@@ -4,15 +4,7 @@ import { client } from "../redis/client.js";
 
 const verifyToken = async (req, res, next) => {
     try {
-        const payload = await client.get("user");
-        //console.log(payload);
-        if (!payload) {
-            return res.status(401).json({ error: "Unauthorized - No User Data in Cache, Login first" });
-        }
-
-        const data = JSON.parse(payload);
-        const token = data.token //fetching current jwt token
-        //console.log([data, token]);
+        const token = req.headers.authorization?.split(" ")[1]; // token is sent in Authorization header as Bearer Token
         if (!token) {
             return res.status(401).json({ error: "Unauthorized - No Token Provided" });
         }
@@ -22,7 +14,18 @@ const verifyToken = async (req, res, next) => {
             return res.status(401).json({ error: "Unauthorized - Invalid Token" });
         }
 
-        const user = await User.findById(decodedUser.userId).select("-password"); //logged in user
+        const redisKey = `user:${decodedUser.userId}`; // Unique Redis key for each user
+        const payload = await client.get(redisKey);
+        if (!payload) {
+            return res.status(401).json({ error: "Unauthorized - No User Data in Cache, Login first" });
+        }
+
+        const data = JSON.parse(payload);
+        if (data.token !== token) {
+            return res.status(401).json({ error: "Unauthorized - Token Mismatch" });
+        }
+
+        const user = await User.findById(decodedUser.userId).select("-password");
         if (!user) {
             return res.status(404).json({ error: "User Not Found!" });
         }
@@ -30,9 +33,9 @@ const verifyToken = async (req, res, next) => {
         req.user = user;
         next();
     } catch (err) {
-        console.log("Error in protectRoute middleware", err.message);
+        console.log("Error in verifyToken middleware", err.message);
         res.status(500).json({ error: "Internal Server Error" });
     }
-}
+};
 
 export default verifyToken;

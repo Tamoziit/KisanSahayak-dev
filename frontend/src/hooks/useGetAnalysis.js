@@ -27,7 +27,8 @@ const useGetAnalysis = () => {
             const data = await fetch(`${apiUrl}/dashboard/analysis/${authUser._id}`, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${localStorage.getItem("KS-token")}`,
                 },
                 body: JSON.stringify(fetchData)
             });

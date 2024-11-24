@@ -32,10 +32,11 @@ const corOpts = {
         'PATCH',
         'DELETE'
     ],
-
     allowedHeaders: [
         'Content-Type',
+        'Authorization'
     ],
+    credentials: true
 };
 
 app.use(express.json());
