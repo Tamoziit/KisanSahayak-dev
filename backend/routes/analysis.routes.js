@@ -4,7 +4,7 @@ import verifyToken from "../middleware/protectRoute.js";
 
 const router = express.Router();
 
-router.post("/analysis", verifyToken, analysis);
+router.post("/analysis/:id", verifyToken, analysis);
 router.get("/personalized/:id", verifyToken, analysis2);
 
 export default router;

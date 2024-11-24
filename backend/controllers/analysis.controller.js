@@ -4,9 +4,11 @@ import { client } from "../redis/client.js";
 export const analysis = async (req, res) => {
     try {
         const { rain, soil_N, soil_K, soil_P, soil_pH, temp, hum } = req.body;
+        const id = req.params.id;
 
-        const cacheValue = await client.get("analysis");
+        const cacheValue = await client.get(`analysis:${id}`);
         if (cacheValue) {
+            console.log(cacheValue);
             return res.status(200).json(JSON.parse(cacheValue));
         }
 
@@ -28,9 +30,10 @@ export const analysis = async (req, res) => {
         const data = await response.json();
 
         if (data) {
-            await client.set("analysis", JSON.stringify(data));
-            await client.expire("analysis", 30 * 60);
-            res.status(200).json(data);
+            const analysisData = { ...data, id };
+            await client.set(`analysis:${id}`, JSON.stringify(analysisData));
+            await client.expire(`analysis:${id}`, 30 * 60);
+            res.status(200).json(analysisData);
         } else {
             res.status(400).json({ error: "Invalid parameters" });
         }

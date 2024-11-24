@@ -45,6 +45,8 @@ const Dashboard = () => {
 		getAnalysis();
 		getPersonalizedAnalysis();
 	}, []);
+	console.log(diseaseFrequency);
+	console.log(pesticideFrequency.length);
 
 	return (
 		<div>
@@ -88,23 +90,29 @@ const Dashboard = () => {
 				<h1 className="text-center"><Spinner /></h1>
 			)}
 
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-8">Personalized Analysis</h1>
+			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-8">
+				Personalized Analysis
+			</h1>
 			{enloading ? (
 				<Spinner />
 			) : (
 				<div className="flex space-x-4 flex-col px-4 mb-10">
-					{diseaseFrequency && pesticideFrequency ? (
+					{diseaseFrequency &&
+						pesticideFrequency &&
+						Object.keys(diseaseFrequency).length !== 0 &&
+						Object.keys(pesticideFrequency).length !== 0 ? (
 						<div className="flex gap-4">
 							<div className="w-1/2">
 								<DiseaseChart diseaseFrequency={diseaseFrequency} />
 							</div>
-
 							<div className="w-1/2">
 								<PesticideChart pesticideFrequency={pesticideFrequency} />
 							</div>
 						</div>
 					) : (
-						<span>No Data Available as of now</span>
+						<div className="flex items-center justify-center w-full">
+							<span className="text-lg text-gray-500">No Data Available as of now</span>
+						</div>
 					)}
 				</div>
 			)}
