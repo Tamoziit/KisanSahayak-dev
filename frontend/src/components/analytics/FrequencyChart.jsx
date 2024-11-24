@@ -50,7 +50,7 @@ const FrequencyChart = ({ labels, data, title, head, backgroundColour }) => {
                 chartRef.current.destroy();
             }
         };
-    }, [labels, data, title, head]);
+    }, [labels, data, title, head, backgroundColour]);
 
     return <canvas id={title} />;
 };
