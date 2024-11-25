@@ -160,3 +160,23 @@ export const getMyOrders = async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
+
+export const getSuggestions = async (req, res) => {
+    try {
+        const loggedInUser = req.params.id;
+        const { keys } = req.body;
+        console.log(keys);
+        const products = await Product.find({ seller: { $ne: loggedInUser } });
+
+        const filteredProducts = products.filter((product) =>
+            keys.some((key) =>
+                product.product_name.toLowerCase().includes(key.toLowerCase())
+            )
+        );
+        console.log(filteredProducts);
+        res.status(200).json(filteredProducts);
+    } catch (err) {
+        console.log(err.message)
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}

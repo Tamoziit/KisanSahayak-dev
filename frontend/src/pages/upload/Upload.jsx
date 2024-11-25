@@ -7,6 +7,7 @@ import Predictions from "../../components/Predictions.jsx";
 import toast from "react-hot-toast";
 import Spinner from "../../components/Spinner";
 import Navbar from "../../components/navbars/Navbar-actions.jsx";
+import Suggestions from "../../components/Suggestions.jsx";
 
 function Uploader() {
 	const inputRef = useRef(null);
@@ -140,6 +141,12 @@ function Uploader() {
 						{predictedData ? (<Predictions data={predictedData} />) : (<img src="gifend.gif" alt="loading img" className="w-1/2" />)}
 					</div>
 				</div>
+
+				{predictedData && (
+					<div className="flex justify-center w-full px-6 mt-6 mb-3">
+						<Suggestions keys={predictedData.pesticides} />
+					</div>
+				)}
 			</main>
 		</>
 	);
