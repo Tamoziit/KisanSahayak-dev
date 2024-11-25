@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Typography, Box, Grid, InputBase, IconButton, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
-//import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import AOS from "aos";
 import "aos/dist/aos.css";
 import "./market.css";
-//import { setProductData } from '../../state/reducer';
 import useGetItems from '../../hooks/useGetItems';
 import ItemCard from '../../components/ItemCard';
 import Navbar from '../../components/navbars/Navbar-actions';
@@ -14,7 +12,6 @@ import Navbar from '../../components/navbars/Navbar-actions';
 const FoodGalleryPage = () => {
 	const { loading, items } = useGetItems();
 	const [products, setProducts] = useState([]);
-	//const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [search, setSearch] = useState("");
 
@@ -113,6 +110,9 @@ const FoodGalleryPage = () => {
 								MY ORDERS
 							</Typography>
 						</Button>
+
+						{/* Sentry Test button */}
+						{/* <button onClick={() => {throw new Error("This is your first error!");}}>Break the world</button> */}
 					</Box>
 				</Box>
 				{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>

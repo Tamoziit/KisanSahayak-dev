@@ -1,3 +1,4 @@
+import "./sentry/instrument.js";
 import express from "express";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
@@ -7,6 +8,7 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
+import * as Sentry from "@sentry/node";
 import { fileURLToPath } from "url";
 import { client } from "./redis/client.js";
 
@@ -34,7 +36,9 @@ const corOpts = {
     ],
     allowedHeaders: [
         'Content-Type',
-        'Authorization'
+        'Authorization',
+        'baggage',
+        'sentry-trace'
     ],
     credentials: true
 };
@@ -56,6 +60,13 @@ app.use("/elevatedUser", elevatedUserRoutes);
 app.use("/dashboard", analysisRoutes);
 app.use("/payment", paymentRoutes);
 
+// Sentry setup
+app.get("/debug-sentry", function mainHandler(req, res) {
+    throw new Error("My first Sentry error!");
+});
+
+Sentry.setupExpressErrorHandler(app);
+
 const PORT = process.env.PORT || 6001;
 mongoose.connect(process.env.MONGO_URL).then(() => {
     app.listen(PORT, () => {
@@ -68,7 +79,7 @@ mongoose.connect(process.env.MONGO_URL).then(() => {
             console.log("Error in connecting to Redis");
         }
 
-        if(stripe) {
+        if (stripe) {
             console.log("Stripe Initialized");
         } else {
             console.log("Error in connecting to Stripe");

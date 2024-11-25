@@ -2,6 +2,7 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
+import * as Sentry from "@sentry/react";
 import Slice from './state/reducer.js'
 import { BrowserRouter } from 'react-router-dom'
 import { configureStore } from '@reduxjs/toolkit';
@@ -20,6 +21,22 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthContextProvider } from './context/AuthContext.jsx'
+
+//Sentry Setup
+const dsn = import.meta.env.VITE_SENTRY_DSN;
+Sentry.init({
+  dsn: dsn,
+  integrations: [
+    Sentry.browserTracingIntegration(),
+    Sentry.replayIntegration(),
+  ],
+  // Tracing
+  tracesSampleRate: 1.0,
+  tracePropagationTargets: ["localhost", /^https:\/\/yourserver\.io\/api/],
+  // Session Replay
+  replaysSessionSampleRate: 1.0,
+  replaysOnErrorSampleRate: 1.0,
+});
 
 const persistConfig = { key: "root", storage, version: 1 };
 const persistedReducer = persistReducer(persistConfig, Slice);
