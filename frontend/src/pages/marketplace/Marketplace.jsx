@@ -8,6 +8,7 @@ import "./market.css";
 import useGetItems from '../../hooks/useGetItems';
 import ItemCard from '../../components/ItemCard';
 import Navbar from '../../components/navbars/Navbar-actions';
+import Spinner from '../../components/Spinner';
 
 const FoodGalleryPage = () => {
 	const { loading, items } = useGetItems();
@@ -116,9 +117,9 @@ const FoodGalleryPage = () => {
 					</Box>
 				</Box>
 				{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>
-					Get your pesticides today...
+					<Spinner />
 				</Typography>}
-				{filteredProducts.length > 0 && (
+				{filteredProducts.length > 0 && !loading && (
 					<Box m={5} p={4} marginTop={2} data-aos="fade-up" display="flex" width="90%">
 						<Grid container spacing={5}>
 							{filteredProducts.map((item, index) => (
@@ -126,6 +127,11 @@ const FoodGalleryPage = () => {
 							))}
 						</Grid>
 					</Box>
+				)}
+				{filteredProducts.length === 0 && (
+					<div className='flex w-full items-center justify-center'>
+						<span className="text-lg text-gray-500">No product in Market right now. Wait for updates...</span>
+					</div>
 				)}
 			</Box>
 		</>
