@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { Typography, Box, Grid, InputBase, IconButton, Button } from '@mui/material'
+import { Typography, Box, InputBase, IconButton, Button } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search';
 import { useNavigate } from 'react-router-dom';
 import AOS from "aos";
@@ -119,16 +119,16 @@ const FoodGalleryPage = () => {
 				{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>
 					<Spinner />
 				</Typography>}
-				{filteredProducts.length > 0 && !loading && (
-					<Box m={5} p={4} marginTop={2} data-aos="fade-up" display="flex" width="90%">
-						<Grid container spacing={5}>
+				{filteredProducts.length > 0 && (
+					<div className='flex justify-center w-full px-8 mt-10'>
+						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
 							{filteredProducts.map((item, index) => (
 								<ItemCard item={item} key={index} />
 							))}
-						</Grid>
-					</Box>
+						</div>
+					</div>
 				)}
-				{filteredProducts.length === 0 && (
+				{filteredProducts.length === 0 && !loading && (
 					<div className='flex w-full items-center justify-center'>
 						<span className="text-lg text-gray-500">No product in Market right now. Wait for updates...</span>
 					</div>
