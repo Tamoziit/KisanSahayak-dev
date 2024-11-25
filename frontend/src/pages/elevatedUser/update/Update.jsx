@@ -7,6 +7,7 @@ import HistoryCard from "../../../components/HistoryCard";
 import RainfallChart from "../../../components/analytics/RainfallChart";
 import SoilChart from "../../../components/analytics/SoilChart";
 import useUpdateRecord from "../../../hooks/useUpdateRecord";
+import kelvinToCelsius from "../../../utils/kelvinToCelcius";
 
 const Update = () => {
   const { id } = useParams();
@@ -138,13 +139,25 @@ const Update = () => {
                   <div className="flex-1 w-full">
                     <SoilChart data={soilData} />
                   </div>
+
+                  <div className="flex w-full justify-center gap-4">
+                    <div>
+                      <span className="text-gray-500 text-lg">Humidity: </span>
+                      <span className="font-semibold text-lg">{recordData.hum}</span>
+                    </div>
+
+                    <div>
+                      <span className="text-gray-500 text-lg">Temerature: </span>
+                      <span className="font-semibold text-lg">{kelvinToCelsius(recordData.temp)}</span>
+                    </div>
+                  </div>
                 </div>
               </>
             )
           )}
         </div>
 
-        <form className="w-11/12 lg:w-10/12 xl:w-9/12 bg-white p-6 shadow-md rounded-lg" onSubmit={handleSubmit}>
+        <form className="w-11/12 lg:w-10/12 xl:w-9/12 bg-white p-6 shadow-md rounded-lg mt-4" onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 font-bold mb-2">Crop</label>
             <input
