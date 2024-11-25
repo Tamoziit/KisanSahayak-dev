@@ -5,6 +5,7 @@ import useGetPredictions from "../hooks/useGetPredictions";
 import Predictions from "../components/Predictions";
 import Spinner from "../components/Spinner";
 import { MdDelete } from 'react-icons/md';
+import Suggestions from "./Suggestions";
 
 const videoConstraints = {
 	width: 540,
@@ -100,7 +101,13 @@ const Camera = () => {
 				<div className="flex items-center justify-center w-full p-3">
 					{data ? (<Predictions data={data} />) : (<img src="gifend.gif" alt="loading img" className="w-1/2" />)}
 				</div>
+
 			</div>
+			{data && (
+				<div className="flex justify-center w-full px-6 mt-6 mb-3">
+					<Suggestions keys={data.pesticides} />
+				</div>
+			)}
 		</>
 	);
 }
