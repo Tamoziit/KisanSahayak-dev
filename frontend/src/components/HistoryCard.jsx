@@ -3,7 +3,7 @@ const HistoryCard = ({ history }) => {
     const formattedDate = new Date(history.createdAt).toLocaleDateString();
   
     return (
-      <div className="bg-white shadow-lg rounded-lg p-4 w-90 mx-auto my-4">
+      <div className="bg-gradient-to-br from-gray-300 to-gray-200 shadow-lg rounded-lg p-4 w-90 mx-auto my-4 backdrop-blur-lg">
         <img
           src={history.url}
           alt={history.disease ? `${history.crop} affected by ${history.disease}` : `${history.crop} (Healthy)`}

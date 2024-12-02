@@ -63,12 +63,12 @@ const Camera = () => {
 							style={{ position: 'relative', zIndex: 1 }}
 						/>
 						<div className="flex w-full items-center justify-center">
-							<button onClick={capturePhoto} disabled={uploading} className="primary-button-new w-1/2">
+							<button onClick={capturePhoto} disabled={uploading} className="primary-button-new w-1/2 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400">
 								{uploading ? <Spinner /> : "Capture"}
 							</button>
 							<button onClick={() => {
 								setCaptureData(null)
-							}} className="primary-button-new w-1/2">Refresh</button>
+							}} className="primary-button-new w-1/2 bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400">Refresh</button>
 						</div>
 					</div>
 
@@ -88,7 +88,7 @@ const Camera = () => {
 					<div className="flex items-center justify-center w-full">
 						{captureData?.length === 3 && !data && (
 							<button
-								className="primary-button-new w-full"
+								className="primary-button-new w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400"
 								onClick={handlePredictions}
 								disabled={loading}
 							>

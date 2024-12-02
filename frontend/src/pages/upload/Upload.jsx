@@ -119,7 +119,7 @@ function Uploader() {
 								<button
 									onClick={handleUploadToCloudinary}
 									disabled={uploading}
-									className="primary-button-new w-3/4"
+									className="primary-button-new bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400 w-3/4"
 								>
 									{uploading ? <Spinner /> : "Upload"}
 								</button>
@@ -127,7 +127,7 @@ function Uploader() {
 
 							{uploadData.length === 3 && !predictedData && (
 								<button
-									className="primary-button-new w-full"
+									className="primary-button-new w-full bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400"
 									onClick={handlePredictions}
 									disabled={predicting}
 								>

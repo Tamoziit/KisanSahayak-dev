@@ -183,7 +183,7 @@ const MarketplaceSell = () => {
 							/>
 						</div>
 
-						<button type="submit" className='primary-button-new' disabled={loading}>{loading ? <Spinner /> : "Sell"}</button>
+						<button type="submit" className='primary-button-new bg-gradient-to-r from-orange-500 to-yellow-500 hover:from-orange-600 hover:to-yellow-400' disabled={loading}>{loading ? <Spinner /> : "Sell"}</button>
 					</form>
 				</div>
 			</div>
