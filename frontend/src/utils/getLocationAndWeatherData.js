@@ -33,7 +33,7 @@ export const fetchIPInfo = async () => {
 export const fetchWeatherInfo = async () => {
     try {
         const district = await fetchIPInfo();
-        
+
         if (district.city) {
             const matchedDistrict = env_data.find(
                 (data) => data.District.toUpperCase() === district.city.toUpperCase()
@@ -50,5 +50,17 @@ export const fetchWeatherInfo = async () => {
     } catch (error) {
         toast.error(error.message);
         console.log("Failed to fetch weather info");
+    }
+}
+
+export const getRegionalWeather = (district) => {
+    const matchedDistrict = env_data.find(
+        (data) => data.District.toUpperCase() === district.toUpperCase()
+    );
+
+    if (matchedDistrict) {
+        return matchedDistrict;
+    } else {
+        toast.error(`No data found for the district: ${district}`);
     }
 }

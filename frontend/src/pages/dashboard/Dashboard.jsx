@@ -1,121 +1,83 @@
-/* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react"
-import { fetchWeatherInfo } from "../../utils/getLocationAndWeatherData";
-import RainfallChart from "../../components/analytics/RainfallChart";
-import SoilChart from "../../components/analytics/SoilChart";
-import useGetAnalysis from "../../hooks/useGetAnalysis";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/navbars/Navbar-actions";
-import Spinner from "../../components/Spinner";
-import useGetPersonalizedAnalysis from "../../hooks/useGetPersonalizedAnalysis";
-import DiseaseChart from "../../components/analytics/DiseaseChart";
-import PesticideChart from "../../components/analytics/PesticideChart";
+import { fetchIPInfo } from "../../utils/getLocationAndWeatherData";
+import { useNavigate } from "react-router-dom";
+import { env_data } from "../../data/Rainfall_Soil.json";
 
 const Dashboard = () => {
-	const [weatherData, setWeatherData] = useState(null);
-	const [analysisData, setAnanlysisData] = useState(null);
-	const { loading, analysis } = useGetAnalysis();
-	const { loading: enloading, personalizedAnalysis } = useGetPersonalizedAnalysis();
-	const [diseaseFrequency, setDiseaseFrequency] = useState({});
-	const [pesticideFrequency, setPesticideFrequency] = useState({});
+	const [myDistrict, setMyDistrict] = useState("");
+	const navigate = useNavigate();
 
-	const getAnalysis = async () => {
-		const res = await analysis();
-		setAnanlysisData(res);
-	}
-
-	const getPersonalizedAnalysis = async () => {
-		const data = await personalizedAnalysis();
-		setDiseaseFrequency(data.diseaseFrequency);
-		setPesticideFrequency(data.pesticideFrequency);
-	}
+	const getMyDistrict = async () => {
+		const district = await fetchIPInfo();
+		if (district?.city) {
+			setMyDistrict(district.city);
+		} else {
+			setMyDistrict("No Relevant district found");
+		}
+	};
 
 	useEffect(() => {
-		const getWeatherData = async () => {
-			try {
-				const data = await fetchWeatherInfo();
-				if (data) {
-					setWeatherData(data);
-				}
-			} catch (error) {
-				console.error("Failed to fetch weather data:", error);
-			}
-		};
-
-		getWeatherData();
-		getAnalysis();
-		getPersonalizedAnalysis();
+		getMyDistrict();
 	}, []);
+
+	const images = ["/vector.png", "/Vector2.png", "/vector3.png"];
 
 	return (
 		<div>
 			<Navbar />
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-4">Regional Environmental Conditions Analysis</h1>
-			{weatherData ? (
-				<div className="flex space-x-4 flex-col px-4">
-					<div className="flex gap-4">
-						<div className="w-1/2">
-							<RainfallChart data={weatherData} />
-						</div>
+			<div>
+				<h1 className="text-gray-800 font-bold text-3xl text-left ml-3 mt-4">
+					My Region
+				</h1>
+				<div className="bg-gray-400 w-[98%] h-[2px] ml-3 mr-3 my-2" />
 
-						<div className="w-1/2">
-							<SoilChart data={weatherData} />
-						</div>
+				<div
+					className="m-4 rounded-lg overflow-hidden bg-gray-200 w-fit backdrop-blur-lg shadow-lg transform transition-transform hover:scale-105 flex flex-col items-center justify-center pb-2 cursor-pointer"
+					onClick={() => {
+						navigate("/dashboard/personal");
+					}}
+				>
+					<div className="size-[310px] p-3 rounded-lg overflow-hidden">
+						<img src="/vector.png" alt="personal" className="w-full rounded-lg" />
 					</div>
-
-					{analysisData && (
-						<div className="flex gap-3 mt-10">
-							<div className="w-1/2">
-								<span className="font-semibold text-lg">Most Suitable Crops you can Grow</span>
-								<ul className="pl-2 pt-2 list-disc list-inside">
-									{analysisData.predictions.crops.map((crop, idx) => (
-										<li key={idx}>{crop}</li>
-									))}
-								</ul>
-							</div>
-
-							<div className="w-1/2">
-								<span className="font-semibold text-lg">Diseases your crops are most prone to</span>
-								<ul className="pl-2 pt-2 list-disc list-inside">
-									{analysisData.predictions.diseases.map((disease, idx) => (
-										<li key={idx}>{disease}</li>
-									))}
-								</ul>
-							</div>
-						</div>
-					)}
+					<span className="font-semibold text-2xl text-center text-gray-700">
+						{myDistrict}
+					</span>
 				</div>
-			) : (
-				<h1 className="text-center"><Spinner /></h1>
-			)}
+			</div>
 
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-8">
-				Personalized Analysis
-			</h1>
-			{enloading ? (
-				<Spinner />
-			) : (
-				<div className="flex space-x-4 flex-col px-4 mb-10">
-					{diseaseFrequency &&
-						pesticideFrequency &&
-						Object.keys(diseaseFrequency).length !== 0 &&
-						Object.keys(pesticideFrequency).length !== 0 ? (
-						<div className="flex gap-4">
-							<div className="w-1/2">
-								<DiseaseChart diseaseFrequency={diseaseFrequency} />
-							</div>
-							<div className="w-1/2">
-								<PesticideChart pesticideFrequency={pesticideFrequency} />
-							</div>
-						</div>
-					) : (
-						<div className="flex items-center justify-center w-full">
-							<span className="text-lg text-gray-500">No Data Available as of now</span>
-						</div>
-					)}
+			<div className="mt-8">
+				<h1 className="text-gray-800 font-bold text-3xl text-left ml-3 mt-4">
+					Other Regions
+				</h1>
+				<div className="bg-gray-400 w-[98%] h-[2px] ml-3 mr-3 my-2" />
+				<div>
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:mr-3">
+						{env_data.map((item, _idx) => {
+							const imgSrc = images[_idx % images.length];
+							return (
+								<div
+									className="m-4 rounded-lg overflow-hidden bg-gray-200 w-fit backdrop-blur-lg shadow-lg transform transition-transform hover:scale-105 flex flex-col items-center justify-center pb-2 cursor-pointer"
+									onClick={() => {
+										navigate(`/dashboard/${item.District}`);
+									}}
+									key={_idx}
+								>
+									<div className="lg:size-[310px] p-3 rounded-lg overflow-hidden md:size-[250px]">
+										<img src={imgSrc} alt={item.District} className="w-full rounded-lg" />
+									</div>
+									<span className="font-semibold text-xl text-center text-gray-700">
+										{item.District}
+									</span>
+								</div>
+							);
+						})}
+					</div>
 				</div>
-			)}
+			</div>
 		</div>
-	)
-}
+	);
+};
 
-export default Dashboard
+export default Dashboard;
