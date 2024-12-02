@@ -1,28 +1,30 @@
 import { Navigate, Route, Routes } from "react-router-dom";
+import { Toaster } from "react-hot-toast";
+import { useAuthContext } from "./context/AuthContext";
+import { fetchWeatherInfo } from "./utils/getLocationAndWeatherData";
+import { useEffect } from "react";
+
 import Login from "./pages/auth/Login";
 import Home from "./pages/home/Home";
 import Landing from "./pages/landing/Landing";
 import SignUp from "./pages/auth/Signup";
-import { Toaster } from "react-hot-toast";
-import { useAuthContext } from "./context/AuthContext";
 import Upload from "./pages/upload/Upload";
 import Capture from "./pages/upload/Capture";
 import Dashboard from "./pages/dashboard/Dashboard";
 import MarketPlace from "./pages/marketplace/Marketplace"
 import MarketplaceSell from "./pages/marketplace/MarketplaceSell";
 import MarketplaceBuy from "./pages/marketplace/MarketplaceBuy";
-import { fetchWeatherInfo } from "./utils/getLocationAndWeatherData";
-import CompletePayment from "./pages/payment/CompletePayment";
-import CancelPayment from "./pages/payment/CancelPayment";
-import { useEffect } from "react";
 import MyListings from "./pages/marketplace/MyListings";
 import Gratitude from "./pages/gratitude/Gratitude";
 import Orders from "./pages/marketplace/Orders";
 import History from "./pages/history/History";
 import Records from "./pages/elevatedUser/records/Records";
 import Update from "./pages/elevatedUser/update/Update";
+import CompletePayment from "./pages/payment/CompletePayment";
+import CancelPayment from "./pages/payment/CancelPayment";
 import PersonalDashboard from "./pages/dashboard/PersonalDashboard";
 import RegionalDashboard from "./pages/dashboard/RegionalDashboard";
+import Profile from "./pages/profile/Profile";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -61,6 +63,7 @@ function App() {
           <Route path="/gratitude" element={authUser ? <Gratitude /> : <Navigate to={"/"} />} />
           <Route path="/elevated-user/records" element={authUser ? <Records /> : <Navigate to={"/"} />} />
           <Route path="/elevated-user/record/:id" element={authUser ? <Update /> : <Navigate to={"/"} />} />
+          <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/"} />} />
         </Routes>
 
         <Toaster />

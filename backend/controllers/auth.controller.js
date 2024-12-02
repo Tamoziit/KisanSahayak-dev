@@ -2,6 +2,7 @@ import bcrypt from "bcryptjs";
 import User from "../models/user.model.js";
 import generateTokenAndSetCookie from "../utils/generateToken.js";
 import { client } from "../redis/client.js";
+import DeletedUser from "../models/deletedUser.model.js";
 
 export const register = async (req, res) => {
     try {
@@ -134,12 +135,50 @@ export const logout = async (req, res) => {
 
         res.cookie("jwt", "", { maxAge: 0 }); //Null cookie
         await client.del(`analysis:${userId}`);
-        await client.del(`user:${userId}`);
         await client.del(`userHistory:${userId}`);
+        await client.del(`user:${userId}`);
 
         res.status(200).json({ message: "Logged out successfully" });
     } catch (err) {
         console.log("Error in Logging out", err.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+}
+
+export const deleteAccount = async (req, res) => {
+    try {
+        const { password } = req.body;
+        const userId = req.user._id;
+
+        const user = await User.findById(userId);
+        const conformPassword = await bcrypt.compare(password, user.password || "");
+        if (!user || !conformPassword) {
+            return res.status(400).json({ error: "Error in conforming Delete Account request" });
+        }
+        const newDeletedUser = new DeletedUser({
+            userId: userId,
+            name: user.name,
+            gender: user.gender,
+            dob: user.dob,
+            phoneno: user.phoneno,
+            password: user.password,
+            crops: user.crops,
+        });
+        await newDeletedUser.save();
+        
+        const deletedUser = await User.deleteOne({ _id: userId });
+
+        if (deletedUser) {
+            res.cookie("jwt", "", { maxAge: 0 });
+            await client.del(`analysis:${userId}`);
+            await client.del(`userHistory:${userId}`);
+            await client.del(`user:${userId}`);
+            res.status(200).json({ success: "Account Deleted Successfully" });
+        } else {
+            res.status(400).json({ error: "Couldn't delete your Account" });
+        }
+    } catch (error) {
+        console.log("Error in Deleting Acc.", error.message);
         res.status(500).json({ error: "Internal Server Error" });
     }
 }
