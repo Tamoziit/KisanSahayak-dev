@@ -142,7 +142,7 @@ function Uploader() {
 					</div>
 				</div>
 
-				{predictedData && (
+				{predictedData && predictedData.disease !== "Healthy" && (
 					<div className="flex justify-center w-full px-6 mt-6 mb-3">
 						<Suggestions keys={predictedData.pesticides} />
 					</div>

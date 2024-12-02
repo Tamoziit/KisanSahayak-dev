@@ -27,9 +27,9 @@ const Suggestions = ({ keys }) => {
 				{loading ? (
 					<Spinner />
 				) : (
-					products.length !== 0 ? (
+					products?.length !== 0 ? (
 						<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 w-full">
-							{products.map((item, index) => (
+							{products?.map((item, index) => (
 								<ItemCard item={item} key={index} />
 							))}
 						</div>

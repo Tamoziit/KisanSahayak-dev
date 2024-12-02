@@ -21,6 +21,8 @@ import Orders from "./pages/marketplace/Orders";
 import History from "./pages/history/History";
 import Records from "./pages/elevatedUser/records/Records";
 import Update from "./pages/elevatedUser/update/Update";
+import PersonalDashboard from "./pages/dashboard/PersonalDashboard";
+import RegionalDashboard from "./pages/dashboard/RegionalDashboard";
 
 function App() {
   const { authUser } = useAuthContext();
@@ -46,9 +48,8 @@ function App() {
           <Route path="/capture" element={authUser ? <Capture /> : <Navigate to={"/"} />} />
           <Route path="/upload" element={authUser ? <Upload /> : <Navigate to={"/"} />} />
           <Route path="/dashboard" element={authUser ? <Dashboard /> : <Navigate to={"/"} />} />
-          <Route path="/capture" element={authUser ? <Capture /> : <Navigate to={"/"} />} />
-          <Route path="/upload" element={authUser ? <Upload /> : <Navigate to={"/"} />} />
-          <Route path="/dashboard" element={authUser ? <Dashboard /> : <Navigate to={"/"} />} />
+          <Route path="/dashboard/personal" element={authUser ? <PersonalDashboard /> : <Navigate to={"/"} />} />
+          <Route path="/dashboard/:district" element={authUser ? <RegionalDashboard /> : <Navigate to={"/"} />} />
           <Route path="/history" element={authUser ? <History /> : <Navigate to={"/"} />} />
           <Route path="/marketplace" element={authUser ? <MarketPlace /> : <Navigate to={"/"} />} />
           <Route path="/marketplace/sell" element={authUser ? <MarketplaceSell /> : <Navigate to={"/"} />} />
