@@ -24,6 +24,9 @@ const NewActivity = () => {
         <button className="primary-button-new w-full">
           <Link to="/elevated-user/records" className="w-full block text-center">Contribute</Link>
         </button>
+        <button className="primary-button-new w-full">
+          <Link to="/profile" className="w-full block text-center">Profile</Link>
+        </button>
       </div>
     </div>
   );

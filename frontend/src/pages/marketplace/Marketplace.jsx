@@ -113,7 +113,7 @@ const FoodGalleryPage = () => {
 						</Button>
 
 						{/* Sentry Test button */}
-						{/* <button onClick={() => {throw new Error("This is your first error!");}}>Break the world</button> */}
+						{/*<button onClick={() => {throw new Error("This is your first error!");}}>Break the world</button>*/}
 					</Box>
 				</Box>
 				{loading && <Typography fontFamily="Poppins" fontSize="2rem" fontWeight="500" m={5} p={4}>
