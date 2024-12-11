@@ -27,7 +27,7 @@ const Welcome = () => {
               }}
             />
           </h1>
-          <p className="primary-text">
+          <p className="primary-text font-semibold text-4xl md:text-3xl sm:text-2xl">
             WELCOME, {authUser?.name}
           </p>
         </div>
