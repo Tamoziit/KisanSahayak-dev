@@ -16,7 +16,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Testimonial = () => {
   useEffect(() => {
-    AOS.init({duration: 1000,delay: 200});
+    AOS.init({ duration: 1000, delay: 200 });
     AOS.refresh();
   }, []);
 
@@ -30,7 +30,7 @@ const Testimonial = () => {
       />
     );
   }
-  
+
   function PrevArrow(props) {
     const { className, style, onClick } = props;
     return (
@@ -45,17 +45,17 @@ const Testimonial = () => {
   const TestimonialData = [
     {
       image: Stat1
-    },{
+    }, {
       image: Stat2
-    },{
+    }, {
       image: Stat3
-    },{
+    }, {
       image: Stat4
-    },{
+    }, {
       image: Stat5
-    },{
+    }, {
       image: Stat6
-    },{
+    }, {
       image: Stat7
     }
   ];
@@ -93,14 +93,14 @@ const Testimonial = () => {
     <div className="work-section-wrapper" data-aos="fade-up" id="testimonial-id">
       <div className="work-section-top">
         <h1 className="primary-heading">STATISTICS</h1>
-        <p className="primary-text">
+        <p className="primary-text font-semibold text-4xl">
           Here's some statistics that could help you
         </p>
       </div>
       <Slider {...settings}>
-      {TestimonialData.map((data, _idx) => (
+        {TestimonialData.map((data, _idx) => (
           <div className="testimonial-section-bottom" key={_idx}>
-            <img src={data.image} alt={_idx} style={{width:"700px", height:"300px"}}/>
+            <img src={data.image} alt={_idx} style={{ width: "700px", height: "300px" }} />
             <p>{data.review}</p>
             <div className="testimonials-stars-container">
               {data.stars}
@@ -108,7 +108,7 @@ const Testimonial = () => {
             <h2>{data.name}</h2>
           </div>
         ))}
-        </Slider>
+      </Slider>
     </div>
   );
 };

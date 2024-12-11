@@ -21,7 +21,7 @@ const Contact = () => {
   return (
     <div className="contact-page-wrapper" id="contact-id">
       <h1 className="primary-heading">Have Question In Mind?</h1>
-      <h1 className="primary-heading">Let Us Help You</h1>
+      <h1 className="primary-text font-semibold text-4xl">Let Us Help You</h1>
       <form onSubmit={handleEmailSubmit}>
         <div className="contact-form-container">
           <input
