@@ -59,7 +59,7 @@ const Navbar = () => {
   return (
     <nav>
       <div className="nav-logo-container">
-        <img src={Logo} alt="" className="h-[30px] w-full" />
+        <img src={Logo} alt="logo" className="h-[30px] w-full" />
       </div>
       <div className="navbar-links-container hidden md:flex ml-4">
         <a href="">Welcome</a>

@@ -1,12 +1,14 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Navbar from "../../components/navbars/Navbar-actions";
 import useGetMyHistory from "../../hooks/useGetMyHistory";
 import Spinner from "../../components/Spinner";
 import HistoryCard from "../../components/HistoryCard";
+import gsap from "gsap";
 
 const History = () => {
 	const { loading, history } = useGetMyHistory();
 	const [historyData, setHistoryData] = useState([]);
+	const historyPanel = useRef(null);
 
 	const getHistory = async () => {
 		try {
@@ -21,6 +23,22 @@ const History = () => {
 		getHistory();
 	}, []);
 
+	useEffect(() => {
+		if (historyData) {
+			gsap.set(historyPanel.current, { 
+				y: 50, 
+				opacity: 0 
+			});
+
+			gsap.to(historyPanel.current, {
+				y: 0,
+				opacity: 1,
+				duration: 1.5,
+				ease: "power2.out",
+			});
+		}
+	}, [historyData]);
+
 	return (
 		<div>
 			<Navbar />
@@ -32,7 +50,7 @@ const History = () => {
 					{loading ? (
 						<Spinner />
 					) : (
-						<div className="w-full">
+						<div ref={historyPanel} className="w-full">
 							{historyData?.length > 0 ? (
 								<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 p-4">
 									{[...historyData].reverse().map((history, _idx) => (
