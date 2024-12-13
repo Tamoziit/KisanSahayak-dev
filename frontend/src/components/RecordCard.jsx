@@ -1,9 +1,9 @@
-/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
+import formattedDate from "../utils/formattedDate";
 
 const RecordCard = ({ record }) => {
     const navigate = useNavigate();
-    const formattedDate = new Date(record.createdAt).toLocaleDateString();
+    const date = formattedDate(record.createdAt);
 
     return (
         <div className="bg-white shadow-lg rounded-lg p-4 w-90 mx-auto my-2 transition-transform transform hover:scale-105 hover:border-2 hover:border-slate-500 hover:bg-slate-100 cursor-pointer flex flex-col justify-between">
@@ -28,7 +28,7 @@ const RecordCard = ({ record }) => {
                     <strong>Location:</strong> {record.location}
                 </p>
                 <p className="text-gray-700 text-sm mb-3">
-                    <strong>Date:</strong> {formattedDate}
+                    <strong>Date:</strong> {date}
                 </p>
 
                 <div className="mb-3">
