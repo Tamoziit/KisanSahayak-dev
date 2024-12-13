@@ -1,6 +1,7 @@
-/* eslint-disable react/prop-types */
+import formattedDate from "../utils/formattedDate";
+
 const HistoryCard = ({ history }) => {
-    const formattedDate = new Date(history.createdAt).toLocaleDateString();
+    const date = formattedDate(history.createdAt);
   
     return (
       <div className="bg-gradient-to-br from-gray-300 to-gray-200 shadow-lg rounded-lg p-4 w-90 mx-auto my-4 backdrop-blur-lg">
@@ -20,7 +21,7 @@ const HistoryCard = ({ history }) => {
             <strong>Location:</strong> {history.location}
           </p>
           <p className="text-gray-700 text-sm mb-3">
-            <strong>Date:</strong> {formattedDate}
+            <strong>Date:</strong> {date}
           </p>
   
           <div className="mb-3">
