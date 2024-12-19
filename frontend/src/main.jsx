@@ -21,6 +21,7 @@ import {
 import storage from "redux-persist/lib/storage";
 import { PersistGate } from 'redux-persist/integration/react';
 import { AuthContextProvider } from './context/AuthContext.jsx'
+import { EnrollmentContextProvider } from './context/EnrollmentContext.jsx';
 
 //Sentry Setup
 const dsn = import.meta.env.VITE_SENTRY_DSN;
@@ -56,7 +57,9 @@ createRoot(document.getElementById('root')).render(
       <PersistGate loading={null} persistor={persistStore(store)}>
         <BrowserRouter>
           <AuthContextProvider>
-            <App />
+            <EnrollmentContextProvider>
+              <App />
+            </EnrollmentContextProvider>
           </AuthContextProvider>
         </BrowserRouter>
       </PersistGate>

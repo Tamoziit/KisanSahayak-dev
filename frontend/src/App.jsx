@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import { useAuthContext } from "./context/AuthContext";
+import { useEnrollmentContext } from "./context/EnrollmentContext";
 import { fetchWeatherInfo } from "./utils/getLocationAndWeatherData";
 import { useEffect } from "react";
 
@@ -25,9 +26,13 @@ import CancelPayment from "./pages/payment/CancelPayment";
 import PersonalDashboard from "./pages/dashboard/PersonalDashboard";
 import RegionalDashboard from "./pages/dashboard/RegionalDashboard";
 import Profile from "./pages/profile/Profile";
+import Contribute from "./pages/elevatedUser/gamify/Contribute";
+import GamePage from "./pages/elevatedUser/gamify/GamePage";
+import ImagePage from "./pages/elevatedUser/gamify/ImagePage";
 
 function App() {
   const { authUser } = useAuthContext();
+  const { enrolledUser } = useEnrollmentContext();
   console.log(authUser);
 
   const get = async () => {
@@ -61,6 +66,15 @@ function App() {
           <Route path="/complete-order" element={authUser ? <CompletePayment /> : <Navigate to={"/"} />} />
           <Route path="/cancel-order" element={authUser ? <CancelPayment /> : <Navigate to={"/"} />} />
           <Route path="/gratitude" element={authUser ? <Gratitude /> : <Navigate to={"/"} />} />
+          <Route path="/elevated-user/contribute" element={authUser ? <Contribute /> : <Navigate to={"/"} />} />
+          <Route
+            path="/elevated-user/play"
+            element={authUser ? (enrolledUser ? <GamePage /> : <Navigate to="/elevated-user/contribute" />) : <Navigate to="/" />}
+          />
+          <Route
+            path="/elevated-user/images"
+            element={authUser ? (enrolledUser ? <ImagePage /> : <Navigate to="/elevated-user/contribute" />) : <Navigate to="/" />}
+          />
           <Route path="/elevated-user/records" element={authUser ? <Records /> : <Navigate to={"/"} />} />
           <Route path="/elevated-user/record/:id" element={authUser ? <Update /> : <Navigate to={"/"} />} />
           <Route path="/profile" element={authUser ? <Profile /> : <Navigate to={"/"} />} />
