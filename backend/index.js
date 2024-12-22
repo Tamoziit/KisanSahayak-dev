@@ -19,6 +19,7 @@ import elevatedUserRoutes from "./routes/elevatedUser.routes.js";
 import analysisRoutes from "./routes/analysis.routes.js";
 import paymentRoutes from "./routes/payment.routes.js";
 import stripe from "./stripe/stripeInit.js";
+import adminRoutes from "./routes/admin.routes.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,6 +60,7 @@ app.use("/marketplace", marketplaceRoutes);
 app.use("/elevatedUser", elevatedUserRoutes);
 app.use("/dashboard", analysisRoutes);
 app.use("/payment", paymentRoutes);
+app.use("/admin", adminRoutes);
 
 // Sentry setup
 app.get("/debug-sentry", function mainHandler(req, res) {

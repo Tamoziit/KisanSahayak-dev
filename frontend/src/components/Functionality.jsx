@@ -71,7 +71,7 @@ const Functionality = () => {
           </Link>
         </button>
         <button className="primary-button-new w-full">
-          <Link to="/elevated-user/records" className="w-full block text-center">
+          <Link to="/elevated-user/contribute" className="w-full block text-center">
             Contribute
           </Link>
         </button>
