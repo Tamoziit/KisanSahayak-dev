@@ -52,7 +52,7 @@ const Contribute = () => {
 
 						<div className="flex gap-5 items-center justify-center bg-yellow-300 rounded-lg px-6 py-3">
 							<MdEnergySavingsLeaf className="text-4xl text-green-700" />
-							<h2 className="text-4xl text-green-800 font-semibold font-mono">{enrolledUser?.greenPoints}</h2>
+							<h2 className="text-4xl text-green-800 font-semibold font-mono">{enrolledUser?.greenPoints.toFixed(2)}</h2>
 						</div>
 					</div>
 

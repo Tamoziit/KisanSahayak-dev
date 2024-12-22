@@ -48,3 +48,14 @@
     background-color: hsl(var(--background));
   }
 }
+
+.shine {
+  background: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.3) 50%,
+    rgba(255, 255, 255, 0) 70%
+  );
+  transform: translate(-200%, -200%);
+  filter: blur(8px);
+}

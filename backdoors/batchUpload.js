@@ -102,6 +102,6 @@ async function uploadImagesToMongo(baseDir) {
     }
 }
 
-const BASE_DIR = "C:/Users/Tamojit/Desktop/KisanSahayak test assets/Crop Diseases/Corn___Common_Rust"; // Replace with your directory path
+const BASE_DIR = process.env.BASE_DIR;
 
 uploadImagesToMongo(BASE_DIR);
