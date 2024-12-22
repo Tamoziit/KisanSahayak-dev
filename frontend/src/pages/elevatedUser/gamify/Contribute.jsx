@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../../../components/navbars/Navbar-actions";
 import { FaCheck } from "react-icons/fa";
 import { RiCloseLargeFill } from "react-icons/ri";
@@ -6,18 +5,23 @@ import { VscGraph } from "react-icons/vsc";
 import { MdEnergySavingsLeaf } from "react-icons/md";
 import { useEnrollmentContext } from "../../../context/EnrollmentContext";
 import { Link } from "react-router-dom";
+import useCreateMetadata from "../../../hooks/useCreateMetadata";
+import Spinner from "../../../components/Spinner";
 
 const Contribute = () => {
-	const [correct, setCorrect] = useState(10);
-	const [incorrect, setIncorrect] = useState(3);
-	const [greenPoints, setGreenPoints] = useState(17);
 	const { enrolledUser } = useEnrollmentContext();
+	const { loading, createMetadata } = useCreateMetadata();
 
 	console.log(enrolledUser);
 
 	const accuracyCalc = () => {
-		const accuracy = (correct / (correct + incorrect)) * 100.0;
+		if (enrolledUser?.correct === 0 && enrolledUser?.incorrect === 0) return 0.0;
+		const accuracy = (enrolledUser?.correct / (enrolledUser?.correct + enrolledUser?.incorrect)) * 100.0;
 		return accuracy.toFixed(1);
+	}
+
+	const handleEnrolment = async () => {
+		await createMetadata();
 	}
 
 	return (
@@ -33,12 +37,12 @@ const Contribute = () => {
 					<div className="w-full grid grid-cols-2 md:grid-cols-4 gap-6 p-4 mt-4">
 						<div className="flex gap-5 items-center justify-center bg-green-400 rounded-lg px-6 py-3">
 							<FaCheck className="text-4xl text-green-800" />
-							<h2 className="text-4xl text-green-800 font-semibold font-mono">{correct}</h2>
+							<h2 className="text-4xl text-green-800 font-semibold font-mono">{enrolledUser?.correct}</h2>
 						</div>
 
 						<div className="flex gap-5 items-center justify-center bg-red-400 rounded-lg px-6 py-3">
 							<RiCloseLargeFill className="text-4xl text-red-800" />
-							<h2 className="text-4xl text-red-800 font-semibold font-mono">{incorrect}</h2>
+							<h2 className="text-4xl text-red-800 font-semibold font-mono">{enrolledUser?.incorrect}</h2>
 						</div>
 
 						<div className="flex gap-5 items-center justify-center bg-gray-300 rounded-lg px-6 py-3">
@@ -48,7 +52,7 @@ const Contribute = () => {
 
 						<div className="flex gap-5 items-center justify-center bg-yellow-300 rounded-lg px-6 py-3">
 							<MdEnergySavingsLeaf className="text-4xl text-green-700" />
-							<h2 className="text-4xl text-green-800 font-semibold font-mono">{greenPoints}</h2>
+							<h2 className="text-4xl text-green-800 font-semibold font-mono">{enrolledUser?.greenPoints}</h2>
 						</div>
 					</div>
 
@@ -84,8 +88,10 @@ const Contribute = () => {
 						<img src="/journey.png" alt="journey" className="object-cover object-center" />
 						<button
 							className="bg-green-600 hover:bg-green-700 text-white font-medium text-lg p-2 rounded-lg -mt-3"
+							onClick={handleEnrolment}
+							disabled={loading}
 						>
-							Embark on the amazing Journey
+							{loading ? <Spinner /> : <span>Embark on the amazing Journey</span>}
 						</button>
 					</div>
 				</div>
