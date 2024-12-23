@@ -84,7 +84,7 @@ const GamePage = () => {
 
       <div className="flex flex-col gap-3 items-center justify-center w-full">
         <div className="flex w-full px-6 items-start -mt-4">
-          <Link to="/elevated-user/contribute" className="flex items-center gap-1 text-lg text-gray-500"><IoMdArrowRoundBack /> Back</Link>
+          <Link to="/elevated-user/contribute" className="flex items-center gap-1 text-lg text-gray-500  hover:text-gray-600"><IoMdArrowRoundBack /> Back</Link>
         </div>
 
         <h1 className="-mt-3 text-[45px] font-bold text-gray-700 text-center">

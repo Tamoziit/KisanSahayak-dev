@@ -16,6 +16,7 @@
     "@sentry/react": "^8.40.0",
     "aos": "^2.3.4",
     "axios": "^1.7.7",
+    "browser-image-compression": "^2.0.2",
     "chart.js": "^4.4.4",
     "framer-motion": "^11.5.4",
     "gsap": "^3.12.5",
