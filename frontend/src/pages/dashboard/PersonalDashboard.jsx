@@ -9,6 +9,8 @@ import useGetPersonalizedAnalysis from "../../hooks/useGetPersonalizedAnalysis";
 import DiseaseChart from "../../components/analytics/DiseaseChart";
 import PesticideChart from "../../components/analytics/PesticideChart";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const PersonalDashboard = () => {
 	const [weatherData, setWeatherData] = useState(null);
@@ -50,7 +52,12 @@ const PersonalDashboard = () => {
 	return (
 		<div>
 			<Navbar />
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-4">Regional Environmental Conditions Analysis</h1>
+
+			<div className="flex w-full px-6 items-start -mt-4">
+				<Link to="/dashboard" className="flex items-center gap-1 text-lg text-gray-500  hover:text-gray-600"><IoMdArrowRoundBack /> Back</Link>
+			</div>
+
+			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-3">Regional Environmental Conditions Analysis</h1>
 			{weatherData ? (
 				<div className="flex space-x-4 flex-col px-4">
 					<div className="flex gap-4">

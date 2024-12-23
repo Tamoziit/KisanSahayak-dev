@@ -7,6 +7,8 @@ import toast from 'react-hot-toast';
 import Spinner from '../../components/Spinner';
 import useSellProduct from '../../hooks/useSellProduct';
 import Navbar from '../../components/navbars/Navbar-actions';
+import { Link } from 'react-router-dom';
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const videoConstraints = {
 	width: 450,
@@ -26,7 +28,7 @@ const MarketplaceSell = () => {
 	const [url, setUrl] = useState(null);
 	const [uploadData, setUploadData] = useState(null);
 	const [uploading, setUploading] = useState(false);
-	const {loading, sell} = useSellProduct();
+	const { loading, sell } = useSellProduct();
 
 	const capturePhoto = useCallback(() => {
 		if (webcamRef.current) {
@@ -68,6 +70,12 @@ const MarketplaceSell = () => {
 	return (
 		<>
 			<Navbar />
+
+			<div className="flex w-full px-6 items-start -mt-4">
+				<Link to="/marketplace" className="flex items-center gap-1 text-lg text-gray-500  hover:text-gray-600"><IoMdArrowRoundBack /> Back</Link>
+			</div>
+
+			<h1 className="-mt-2 text-center text-[50px] font-bold text-gray-700">Sell Your Products</h1>
 			<div className='flex p-4 gap-1'>
 				{/* Camera */}
 				<div

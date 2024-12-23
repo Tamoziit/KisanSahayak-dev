@@ -5,8 +5,9 @@ import SoilChart from "../../components/analytics/SoilChart";
 import Navbar from "../../components/navbars/Navbar-actions";
 import Spinner from "../../components/Spinner";
 import useGetRegionalAnalysis from "../../hooks/useGetRegionalAnalysis";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import toast from "react-hot-toast";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 const RegionalDashboard = () => {
 	const { district } = useParams();
@@ -39,7 +40,12 @@ const RegionalDashboard = () => {
 	return (
 		<div>
 			<Navbar />
-			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-4">Environmental Conditions Analysis of {district}</h1>
+
+			<div className="flex w-full px-6 items-start -mt-4">
+				<Link to="/dashboard" className="flex items-center gap-1 text-lg text-gray-500  hover:text-gray-600"><IoMdArrowRoundBack /> Back</Link>
+			</div>
+
+			<h1 className="text-gray-800 font-bold text-3xl text-center mb-7 mt-3">Environmental Conditions Analysis of {district}</h1>
 			{weatherData ? (
 				<div className="flex space-x-4 flex-col px-4">
 					<div className="flex gap-4">
