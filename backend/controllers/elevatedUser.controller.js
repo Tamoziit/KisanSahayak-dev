@@ -2,6 +2,7 @@ import Image from "../models/image.model.js";
 import Metadata from "../models/metadata.model.js";
 import Prediction from "../models/predictions.model.js";
 import { client } from "../redis/client.js";
+import regexHandler from "../utils/regexHandler.js";
 
 export const updatePrediction = async (req, res) => {
     try {
@@ -143,5 +144,34 @@ export const updateMetadata = async (req, res) => {
     } catch (error) {
         console.log("Error in updating metadata", error.message);
         res.status(500).json({ error: "Internal Server error" })
+    }
+}
+
+export const createImage = async (req, res) => {
+    try {
+        const { image_url, crop, disease } = req.body;
+        if (!image_url || !crop || !disease) return res.status(400).json({ error: "All fields are required" });
+        const formattedDisease = regexHandler(disease);
+
+        const newImage = await Image({
+            image_url,
+            crop,
+            disease: formattedDisease
+        });
+
+        if (newImage) {
+            await newImage.save();
+            res.status(201).json({
+                _id: newImage._id,
+                image_url: newImage.image_url,
+                crop: newImage.crop,
+                disease: newImage.disease
+            });
+        } else {
+            res.status(400).json({ error: "Couldn't create new Image" });
+        }
+    } catch (error) {
+        console.log("Error in creating image", error);
+        res.status(500).json({ error: "Internal Server error" });
     }
 }
